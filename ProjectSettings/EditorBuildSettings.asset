@@ -4,5 +4,14 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/DevScenes/MPLoad.unity
+    guid: d9d2d687aaa40364ca2c61c2547e1762
+  - enabled: 1
+    path: Assets/Scenes/DevScenes/MPLobby.unity
+    guid: b460fc6cdb27c824c93006d19760ae54
+  - enabled: 1
+    path: Assets/Scenes/DevScenes/MPDev.unity
+    guid: e99a1b5dc98b2d546b05b6391bdfa467
   m_configObjects: {}
