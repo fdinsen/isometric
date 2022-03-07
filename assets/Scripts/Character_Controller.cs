@@ -1,18 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class Character_Controller : MonoBehaviour
 {
+    private PhotonView view;
     [SerializeField] private Rigidbody _rb;
     [SerializeField] private float _speed = 5;
     [SerializeField] private float _turnSpeed = 1;
+    [SerializeField] private Camera camera;
     private Vector3 _input;
+
+
+    void Start()
+    {
+        view = GetComponent<PhotonView>();
+        if (!view.IsMine)
+        {
+            camera.enabled = false;
+        }
+    }
 
     private void Update()
     {
-        GatherInput();
-        Look();
+       if (view.IsMine)
+        {
+            GatherInput();
+            Look();
+        }
+        
     }
 
     private void FixedUpdate()
