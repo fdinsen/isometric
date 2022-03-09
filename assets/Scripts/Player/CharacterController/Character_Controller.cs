@@ -36,7 +36,6 @@ public class Character_Controller : MonoBehaviour
             GatherInput();
             Look();
         }
-        
     }
 
     private void FixedUpdate()
