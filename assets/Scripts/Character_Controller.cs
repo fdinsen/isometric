@@ -11,6 +11,7 @@ public class Character_Controller : MonoBehaviour
     [SerializeField] private float _turnSpeed = 1;
     [SerializeField] private Camera camera;
     private Vector3 _input;
+    private PlayerInput _inputActions;
 
 
     void Start()
@@ -19,6 +20,12 @@ public class Character_Controller : MonoBehaviour
         if (!view.IsMine)
         {
             camera.enabled = false;
+        }else
+        {
+            _inputActions = new PlayerInput();
+            _inputActions.Movement.Enable();
+            DialogueManager.Instance.DialogueStarted += () => _inputActions.Movement.Disable();
+            DialogueManager.Instance.DialogueEnded += () => _inputActions.Movement.Enable();
         }
     }
 
@@ -39,7 +46,8 @@ public class Character_Controller : MonoBehaviour
 
     private void GatherInput()
     {
-        _input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        var val = _inputActions.Movement.Movement.ReadValue<Vector2>();
+        _input = new Vector3(val.x, 0, val.y);
     }
 
     private void Look()
