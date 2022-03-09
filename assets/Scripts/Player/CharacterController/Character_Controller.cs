@@ -9,17 +9,17 @@ public class Character_Controller : MonoBehaviour
     [SerializeField] private Rigidbody _rb;
     [SerializeField] private float _speed = 5;
     [SerializeField] private float _turnSpeed = 1;
-    [SerializeField] private Camera camera;
+    [SerializeField] private Camera _camera;
     private Vector3 _input;
     private PlayerInput _inputActions;
 
 
-    void Start()
+    void Awake()
     {
         view = GetComponent<PhotonView>();
         if (!view.IsMine)
         {
-            camera.enabled = false;
+            _camera.gameObject.SetActive(false);
         }else
         {
             _inputActions = new PlayerInput();
