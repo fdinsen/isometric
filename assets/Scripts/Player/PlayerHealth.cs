@@ -10,14 +10,17 @@ public class PlayerHealth : MonoBehaviour
     public event HealthEvent HealthChanged;
     public event HealthEvent PlayerDied;
 
+    private Animator _anim;
+
     void Start()
     {
         //Testing code
+        _anim = GetComponentInChildren<Animator>();
         PlayerDied += (a, b) => Debug.Log("Player Died");
         HealthChanged += (a, b) => Debug.Log("");
         var p = new PlayerInput();
         p.Movement.Enable();
-        p.Movement.Test.performed += ctx => DealDamage(10);
+        p.Movement.Test.performed += ctx => { if (_anim != null) _anim.SetTrigger("Attack");  DealDamage(10); };
         //Testing code end
 
         Health = 100;

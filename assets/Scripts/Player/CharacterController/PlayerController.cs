@@ -4,11 +4,12 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Photon.Pun;
 
-
+[RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
     private PhotonView view;
     [SerializeField] private CharacterController _controller;
+    [SerializeField] private Animator _anim;
     [SerializeField] private float _speed = 5;
     [SerializeField] private Camera _camera;
 
@@ -18,6 +19,8 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         view = GetComponent<PhotonView>();
+        _controller = GetComponent<CharacterController>();
+        _anim = GetComponent<Animator>();
         if (!view.IsMine)
         {
             _camera.gameObject.SetActive(false);
@@ -48,7 +51,11 @@ public class PlayerController : MonoBehaviour
 
     void Move(Vector2 input)
     {
+        if(_anim != null)
+            _anim.SetFloat("Speed", GetVector2Size(input));
+
         if (input == Vector2.zero) return;
+
         _controller.Move(input * _speed * Time.fixedDeltaTime);
 
         if (input.x > 0 && !facingRight)
@@ -62,5 +69,10 @@ public class PlayerController : MonoBehaviour
             // ... flip the player.
             Flip();
         }
+    }
+
+    float GetVector2Size(Vector2 v)
+    {
+        return Mathf.Abs(v.x + v.y);
     }
 }

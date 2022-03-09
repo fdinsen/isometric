@@ -11,10 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DevScenes/MPLobby.unity
     guid: b460fc6cdb27c824c93006d19760ae54
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/DevScenes/MPDevF.unity
     guid: b77a804f7a7eeda42991a24d82206d6f
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/DevScenes/MPDevA.unity
     guid: e99a1b5dc98b2d546b05b6391bdfa467
   m_configObjects: {}
