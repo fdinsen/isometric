@@ -130,7 +130,7 @@ MonoBehaviour:
   _rb: {fileID: 8913725356530067438}
   _speed: 6
   _turnSpeed: 3600
-  camera: {fileID: 8913725357197106198}
+  _camera: {fileID: 0}
 --- !u!114 &8913725356530067432
 MonoBehaviour:
   m_ObjectHideFlags: 0
