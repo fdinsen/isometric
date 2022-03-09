@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _speed = 5;
     [SerializeField] private Camera _camera;
 
+    private GameObject[] crosshair;
+
     private bool facingRight = true;
 
     private PlayerInput _inputActions;
@@ -21,6 +23,7 @@ public class PlayerController : MonoBehaviour
         view = GetComponent<PhotonView>();
         _controller = GetComponent<CharacterController>();
         _anim = GetComponent<Animator>();
+        crosshair = GameObject.FindGameObjectsWithTag("Crosshair");
         if (!view.IsMine)
         {
             _camera.gameObject.SetActive(false);
@@ -39,7 +42,10 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move(_inputActions.Movement.Movement.ReadValue<Vector2>());
+        if (view.IsMine)
+        {
+            Move(_inputActions.Movement.Movement.ReadValue<Vector2>());
+        }
     }
 
     void Flip()
@@ -73,6 +79,6 @@ public class PlayerController : MonoBehaviour
 
     float GetVector2Size(Vector2 v)
     {
-        return Mathf.Abs(v.x + v.y);
+        return Mathf.Abs(v.x) + Mathf.Abs(v.y);
     }
 }
