@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class PlayerInteract : MonoBehaviour
 {
+    
     private PlayerInput _playerInput;
 
+    [SerializeField] private float interactDistance = 1f;
     [SerializeField] private LayerMask interactableLayers = new LayerMask();
 
     // Start is called before the first frame update
@@ -27,11 +29,19 @@ public class PlayerInteract : MonoBehaviour
     // Update is called once per frame
     void Interact()
     {
-        var interacted = Physics.OverlapSphere(transform.position, 10f, interactableLayers);
+        Debug.Log("Hi");
+        var interacted = Physics.OverlapSphere(transform.position, interactDistance, interactableLayers);
         foreach(Collider col in interacted)
         {
-            //Debug.Log(col.gameObject.name);
+            Debug.Log(col.gameObject.name);
             col.GetComponent<IInteractable>().Interact();
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        //Use the same vars you use to draw your Overlap SPhere to draw your Wire Sphere.
+        Gizmos.DrawWireSphere(transform.position, interactDistance);
     }
 }
