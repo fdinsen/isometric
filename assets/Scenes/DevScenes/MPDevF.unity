@@ -201,7 +201,7 @@ TilemapRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
-  m_ChunkCullingBounds: {x: 0.5, y: 0.6034483, z: 0}
+  m_ChunkCullingBounds: {x: 0.5333333, y: 0.6034483, z: 0}
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 3
@@ -4557,10 +4557,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8913725357197106198, guid: 7a0f1539e2f43a04c80c0cdc3fb1c03e, type: 3}
-      propertyPath: orthographic size
-      value: 7
-      objectReference: {fileID: 0}
     - target: {fileID: 8913725357864863308, guid: 7a0f1539e2f43a04c80c0cdc3fb1c03e, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -4611,7 +4607,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8913725357864863314, guid: 7a0f1539e2f43a04c80c0cdc3fb1c03e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a0f1539e2f43a04c80c0cdc3fb1c03e, type: 3}
