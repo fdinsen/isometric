@@ -6,17 +6,17 @@ public class Shooting : MonoBehaviour
 {
     [SerializeField] Transform firePoint;
     public GameObject bulletPrefab;
-
+    private PlayerInput inputActions;
     public float bulletForce = 20f;
 
-    // Update is called once per frame
-    void Update()
+
+    private void Awake()
     {
-        if (Input.GetButtonDown("Fire1"))
-        {
-            Shoot();
-        }
+        inputActions = new PlayerInput();
+        inputActions.Combat.Enable();
+        inputActions.Combat.Shooting.performed += ctx => Shoot();
     }
+  
 
     void Shoot()
     {
