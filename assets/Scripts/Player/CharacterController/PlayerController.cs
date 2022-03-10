@@ -73,13 +73,13 @@ public class PlayerController : MonoBehaviour
         if (input.x > 0 && !facingRight)
         {
             // ... flip the player.
-            Flip(gameObject);
+            Flip(_sprite);
         }
         // Otherwise if the input is moving the player left and the player is facing right...
         else if (input.x < 0 && facingRight)
         {
             // ... flip the player.
-            Flip(gameObject);
+            Flip(_sprite);
         }
     }
 
