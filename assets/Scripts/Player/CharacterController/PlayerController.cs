@@ -7,56 +7,62 @@ using Photon.Pun;
 //[RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
-    private PhotonView view;
+    private PhotonView _view;
     [Header("Component Setup")]
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private Animator _anim;
     [SerializeField] private GameObject _camera;
-    [SerializeField] private GameObject _sprite;
+    [SerializeField] private SpriteRenderer _sprite;
+    [SerializeField] private PlayerHealth _phealth;
 
     [Header("Parameters")]
     [SerializeField] private float _speed = 5;
 
-    private GameObject[] crosshair;
+    private GameObject[] _crosshair;
 
-    private bool facingRight = true;
+    private bool _facingRight = true;
 
     private PlayerInput _inputActions;
     void Awake()
     {
-        view = GetComponent<PhotonView>();
+        _view = GetComponent<PhotonView>();
         if(_rb == null) _rb = GetComponent<Rigidbody2D>();
         if(_anim == null) _anim = GetComponent<Animator>();
-        crosshair = GameObject.FindGameObjectsWithTag("Crosshair");
-        if (!view.IsMine)
+        if (_phealth == null) _phealth = GetComponent<PlayerHealth>();
+
+        _crosshair = GameObject.FindGameObjectsWithTag("Crosshair");
+        if (!_view.IsMine)
         {
             _camera.gameObject.SetActive(false);
+            return;
         }
-        else
+        _inputActions = new PlayerInput();
+        _inputActions.Movement.Enable();
+        if(DialogueManager.Instance != null)
         {
-            _inputActions = new PlayerInput();
-            _inputActions.Movement.Enable();
-            if(DialogueManager.Instance != null)
-            {
-                DialogueManager.Instance.DialogueStarted += () => _inputActions.Movement.Disable();
-                DialogueManager.Instance.DialogueEnded += () => _inputActions.Movement.Enable();
-            }
+            DialogueManager.Instance.DialogueStarted += () => _inputActions.Movement.Disable();
+            DialogueManager.Instance.DialogueEnded += () => _inputActions.Movement.Enable();
         }
+        if(_phealth != null)
+        {
+            _phealth.PlayerDied += (a, b) => ToggleMovement(false);
+        }
+        
     }
 
     private void FixedUpdate()
     {
-        if (view.IsMine)
+        if (_view.IsMine)
         {
             Move(_inputActions.Movement.Movement.ReadValue<Vector2>());
         }
     }
 
-    void Flip(GameObject sprite)
+    void Flip(SpriteRenderer sprite)
     {
-        facingRight = !facingRight;
+        _facingRight = !_facingRight;
 
-        sprite.transform.Rotate(0f, 180f, 0f);
+        sprite.flipX = !_facingRight;
     }
 
     void Move(Vector2 input)
@@ -67,16 +73,15 @@ public class PlayerController : MonoBehaviour
         if (input == Vector2.zero) return;
 
         var moveBy = new Vector3(input.x, input.y, 0);
-        //_controller.Move(input * _speed * Time.fixedDeltaTime);
         transform.position += _speed * Time.fixedDeltaTime * moveBy;
 
-        if (input.x > 0 && !facingRight)
+        if (input.x > 0 && !_facingRight)
         {
             // ... flip the player.
             Flip(_sprite);
         }
         // Otherwise if the input is moving the player left and the player is facing right...
-        else if (input.x < 0 && facingRight)
+        else if (input.x < 0 && _facingRight)
         {
             // ... flip the player.
             Flip(_sprite);
@@ -86,5 +91,14 @@ public class PlayerController : MonoBehaviour
     float GetVector2Size(Vector2 v)
     {
         return Mathf.Abs(v.x) + Mathf.Abs(v.y);
+    }
+
+    private void ToggleMovement(bool doEnable)
+    {
+        if (doEnable) 
+        { 
+            _inputActions.Movement.Enable(); return; 
+        }
+        _inputActions.Movement.Disable();
     }
 }

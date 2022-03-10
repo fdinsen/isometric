@@ -15,14 +15,14 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         //Testing code
-        _anim = GetComponentInChildren<Animator>();
-        PlayerDied += (a, b) => Debug.Log("Player Died");
         HealthChanged += (a, b) => Debug.Log("");
         var p = new PlayerInput();
         p.Movement.Enable();
-        p.Movement.Test.performed += ctx => { if (_anim != null) _anim.SetTrigger("Attack");  DealDamage(10); };
+        p.Movement.Test.performed += ctx => { DealDamage(10); };
         //Testing code end
 
+        _anim = GetComponentInChildren<Animator>();
+        PlayerDied += (a, b) => StartCoroutine(Die());
         Health = 100;
         HealthChanged.Invoke(Health, maxHealth);
     }
@@ -30,6 +30,7 @@ public class PlayerHealth : MonoBehaviour
     public void DealDamage(int amnt)
     {
         Health -= amnt;
+        _anim.SetTrigger("Hurt");
         HealthChanged.Invoke(Health, maxHealth);
         if(Health <= 0)
         {
@@ -45,5 +46,12 @@ public class PlayerHealth : MonoBehaviour
             Health = maxHealth;
         }
         HealthChanged.Invoke(Health, maxHealth);
+    }
+
+    public IEnumerator Die()
+    {
+        _anim.SetBool("Dead", true);
+        yield return new WaitForSeconds(1f);
+        gameObject.SetActive(false);
     }
 }
