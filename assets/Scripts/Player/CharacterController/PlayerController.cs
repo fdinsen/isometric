@@ -8,10 +8,14 @@ using Photon.Pun;
 public class PlayerController : MonoBehaviour
 {
     private PhotonView view;
+    [Header("Component Setup")]
     [SerializeField] private CharacterController _controller;
     [SerializeField] private Animator _anim;
-    [SerializeField] private float _speed = 5;
     [SerializeField] private Camera _camera;
+    [SerializeField] private GameObject _sprite;
+
+    [Header("Parameters")]
+    [SerializeField] private float _speed = 5;
 
     private GameObject[] crosshair;
 
@@ -21,8 +25,8 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         view = GetComponent<PhotonView>();
-        _controller = GetComponent<CharacterController>();
-        _anim = GetComponent<Animator>();
+        if(_controller == null) _controller = GetComponent<CharacterController>();
+        if(_anim == null) _anim = GetComponent<Animator>();
         crosshair = GameObject.FindGameObjectsWithTag("Crosshair");
         if (!view.IsMine)
         {
@@ -48,11 +52,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void Flip()
+    void Flip(GameObject sprite)
     {
         facingRight = !facingRight;
 
-        transform.Rotate(0f, 180f, 0f);
+        sprite.transform.Rotate(0f, 180f, 0f);
     }
 
     void Move(Vector2 input)
@@ -67,13 +71,13 @@ public class PlayerController : MonoBehaviour
         if (input.x > 0 && !facingRight)
         {
             // ... flip the player.
-            Flip();
+            Flip(_sprite);
         }
         // Otherwise if the input is moving the player left and the player is facing right...
         else if (input.x < 0 && facingRight)
         {
             // ... flip the player.
-            Flip();
+            Flip(_sprite);
         }
     }
 
