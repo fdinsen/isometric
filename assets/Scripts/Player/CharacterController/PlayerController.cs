@@ -4,14 +4,14 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Photon.Pun;
 
-[RequireComponent(typeof(CharacterController))]
+//[RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
     private PhotonView view;
     [Header("Component Setup")]
-    [SerializeField] private CharacterController _controller;
+    [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private Animator _anim;
-    [SerializeField] private Camera _camera;
+    [SerializeField] private GameObject _camera;
     [SerializeField] private GameObject _sprite;
 
     [Header("Parameters")]
@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         view = GetComponent<PhotonView>();
-        if(_controller == null) _controller = GetComponent<CharacterController>();
+        if(_rb == null) _rb = GetComponent<Rigidbody2D>();
         if(_anim == null) _anim = GetComponent<Animator>();
         crosshair = GameObject.FindGameObjectsWithTag("Crosshair");
         if (!view.IsMine)
@@ -66,18 +66,20 @@ public class PlayerController : MonoBehaviour
 
         if (input == Vector2.zero) return;
 
-        _controller.Move(input * _speed * Time.fixedDeltaTime);
+        var moveBy = new Vector3(input.x, input.y, 0);
+        //_controller.Move(input * _speed * Time.fixedDeltaTime);
+        transform.position += _speed * Time.fixedDeltaTime * moveBy;
 
         if (input.x > 0 && !facingRight)
         {
             // ... flip the player.
-            Flip(_sprite);
+            Flip(gameObject);
         }
         // Otherwise if the input is moving the player left and the player is facing right...
         else if (input.x < 0 && facingRight)
         {
             // ... flip the player.
-            Flip(_sprite);
+            Flip(gameObject);
         }
     }
 

@@ -108,7 +108,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7403585787035270285}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.42, y: 0.09, z: 3.2259142}
+  m_LocalPosition: {x: 0.778, y: 0.355, z: 3.2259142}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8913725357864863308}
@@ -415,9 +415,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8913725357864863308}
+  - component: {fileID: 309506411}
+  - component: {fileID: 309506407}
   - component: {fileID: 1632623331}
   - component: {fileID: 387547501}
-  - component: {fileID: 807371031}
   - component: {fileID: 807371028}
   - component: {fileID: 807371029}
   - component: {fileID: 807371030}
@@ -448,6 +449,43 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &309506411
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8913725357864863314}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!70 &309506407
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8913725357864863314}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.15262836, y: -0.6189625}
+  m_Size: {x: 1.2920066, y: 1.3287783}
+  m_Direction: 0
 --- !u!114 &1632623331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -476,24 +514,6 @@ MonoBehaviour:
   firePoint: {fileID: 6075624639086589469}
   bulletPrefab: {fileID: 1628897354262997406, guid: 346a02666811f6e4ab14d01380058a79, type: 3}
   bulletForce: 20
---- !u!143 &807371031
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8913725357864863314}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 1
-  m_Radius: 0.40625
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &807371028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -546,9 +566,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cdb59abf7bbc7d48bcd7aba5a9ccc22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _controller: {fileID: 807371031}
+  _rb: {fileID: 0}
   _anim: {fileID: 460609013}
-  _camera: {fileID: 8913725357197106198}
+  _camera: {fileID: 8913725357398311687}
   _sprite: {fileID: 8913725356530067440}
   _speed: 5
 --- !u!114 &807371032
