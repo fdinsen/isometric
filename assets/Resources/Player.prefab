@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1145775183}
   m_Layer: 2
   m_Name: Crosshair
-  m_TagString: Untagged
+  m_TagString: Crosshair
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,7 +108,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7403585787035270285}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.778, y: 0.355, z: 3.2259142}
+  m_LocalPosition: {x: -0.09, y: 0.26, z: 3.2259142}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8913725357864863308}
@@ -136,11 +136,11 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7403585787035270285}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.0001
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -148,7 +148,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 7
 --- !u!1 &8913725356530067440
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,6 +160,7 @@ GameObject:
   - component: {fileID: 8913725356530067443}
   - component: {fileID: 1939272776}
   - component: {fileID: 460609013}
+  - component: {fileID: 2158957863004889824}
   - component: {fileID: 1920371135}
   m_Layer: 0
   m_Name: Sprite
@@ -252,6 +253,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2158957863004889824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8913725356530067440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 0
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!114 &1920371135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,6 +290,12 @@ MonoBehaviour:
   - Type: 9
     SynchronizeType: 1
     Name: Attack
+  - Type: 4
+    SynchronizeType: 1
+    Name: Dead
+  - Type: 9
+    SynchronizeType: 1
+    Name: Hurt
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
@@ -287,6 +310,7 @@ GameObject:
   - component: {fileID: 8913725357197106193}
   - component: {fileID: 8913725357197106198}
   - component: {fileID: 8913725357197106199}
+  - component: {fileID: 1360631866104852497}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -359,6 +383,36 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8913725357197106196}
   m_Enabled: 1
+--- !u!114 &1360631866104852497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8913725357197106196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5416b6022d95484f93aa15f54cc2759, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_cameraShakeType: 0
+  _frequency: 30
+  _translationMasterMagnitude: 1
+  _translateAxisX: 1
+  _translateAxisY: 1
+  _translateAxisZ: 0
+  _translateAxisXMultiplier: 1
+  _translateAxisYMultiplier: 1
+  _translateAxisZMultiplier: 1
+  _rotationMasterMagnitude: 15
+  _rotateAxisX: 1
+  _rotateAxisY: 1
+  _rotateAxisZ: 1
+  _rotateAxisXMultiplier: 1
+  _rotateAxisYMultiplier: 1
+  _rotateAxisZMultiplier: 1
+  _decay: 2
+  _trauma: 0
 --- !u!1 &8913725357398311687
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,7 +478,7 @@ GameObject:
   - component: {fileID: 807371030}
   - component: {fileID: 807371032}
   - component: {fileID: 807371033}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -457,7 +511,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8913725357864863314}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -514,6 +568,8 @@ MonoBehaviour:
   firePoint: {fileID: 6075624639086589469}
   bulletPrefab: {fileID: 1628897354262997406, guid: 346a02666811f6e4ab14d01380058a79, type: 3}
   bulletForce: 20
+  anim: {fileID: 460609013}
+  Cooldowntime: 1
 --- !u!114 &807371028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -531,10 +587,12 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 3
   OwnershipTransfer: 0
-  observableSearch: 2
+  observableSearch: 0
   ObservedComponents:
   - {fileID: 807371029}
   - {fileID: 1920371135}
+  - {fileID: 2158957863004889824}
+  - {fileID: 1632623331}
   sceneViewId: 2
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -551,7 +609,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
+  m_SynchronizeRotation: 0
   m_SynchronizeScale: 0
   m_UseLocal: 1
 --- !u!114 &807371030
@@ -566,10 +624,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cdb59abf7bbc7d48bcd7aba5a9ccc22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rb: {fileID: 0}
-  _anim: {fileID: 460609013}
   _camera: {fileID: 8913725357398311687}
-  _sprite: {fileID: 8913725356530067440}
+  _rb: {fileID: 309506411}
+  _spriteAnim: {fileID: 460609013}
+  _phealth: {fileID: 1632623331}
   _speed: 5
 --- !u!114 &807371032
 MonoBehaviour:
