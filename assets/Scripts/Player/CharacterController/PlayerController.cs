@@ -9,10 +9,9 @@ public class PlayerController : MonoBehaviour
 {
     private PhotonView _view;
     [Header("Component Setup")]
-    [SerializeField] private Rigidbody2D _rb;
-    [SerializeField] private Animator _anim;
     [SerializeField] private GameObject _camera;
-    [SerializeField] private SpriteRenderer _sprite;
+    [SerializeField] private Rigidbody2D _rb;
+    [SerializeField] private Animator _spriteAnim;
     [SerializeField] private PlayerHealth _phealth;
 
     [Header("Parameters")]
@@ -27,12 +26,13 @@ public class PlayerController : MonoBehaviour
     {
         _view = GetComponent<PhotonView>();
         if(_rb == null) _rb = GetComponent<Rigidbody2D>();
-        if(_anim == null) _anim = GetComponent<Animator>();
+        if(_spriteAnim == null) _spriteAnim = GetComponentInChildren<Animator>();
         if (_phealth == null) _phealth = GetComponent<PlayerHealth>();
 
         _crosshair = GameObject.FindGameObjectsWithTag("Crosshair");
         if (!_view.IsMine)
         {
+            gameObject.tag = "OtherPlayer";
             _camera.gameObject.SetActive(false);
             return;
         }
@@ -58,17 +58,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void Flip(SpriteRenderer sprite)
+    void Flip(GameObject sprite)
     {
         _facingRight = !_facingRight;
 
-        sprite.flipX = !_facingRight;
+        sprite.transform.Rotate(0f,180f,0);
     }
 
     void Move(Vector2 input)
     {
-        if(_anim != null)
-            _anim.SetFloat("Speed", GetVector2Size(input));
+        if(_spriteAnim != null)
+            _spriteAnim.SetFloat("Speed", GetVector2Size(input));
 
         if (input == Vector2.zero) return;
 
@@ -78,13 +78,13 @@ public class PlayerController : MonoBehaviour
         if (input.x > 0 && !_facingRight)
         {
             // ... flip the player.
-            Flip(_sprite);
+            Flip(_spriteAnim.gameObject);
         }
         // Otherwise if the input is moving the player left and the player is facing right...
         else if (input.x < 0 && _facingRight)
         {
             // ... flip the player.
-            Flip(_sprite);
+            Flip(_spriteAnim.gameObject);
         }
     }
 

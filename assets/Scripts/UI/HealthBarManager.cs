@@ -27,12 +27,9 @@ public class HealthBarManager : MonoBehaviour
         var players = GameObject.FindGameObjectsWithTag("Player");
         foreach (var player in players)
         {
-            if (player.GetComponentInChildren<PhotonView>().IsMine)
-            {
-                player.TryGetComponent(out PlayerHealth myPlayer);
-                if (myPlayer == null) { break; }
-                return myPlayer;
-            }
+            player.TryGetComponent(out PlayerHealth myPlayer);
+            if (myPlayer == null) { break; }
+            return myPlayer;
         }
         Debug.LogError("Error: Health Bar could not find active player!");
         return null;
