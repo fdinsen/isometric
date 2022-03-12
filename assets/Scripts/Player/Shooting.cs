@@ -23,14 +23,26 @@ public class Shooting : MonoBehaviour
         {
             return;
         }
-        _view = GetComponent<PhotonView>();
         GameObject.FindGameObjectWithTag("TraumaManager")?.TryGetComponent(out _traumaManager);
+        _view = GetComponent<PhotonView>();
+        anim = GetComponentInChildren<Animator>();
 
         inputActions = new PlayerInput();
         inputActions.Combat.Enable();
         inputActions.Combat.Shooting.performed += ctx => Shoot();
-        anim = GetComponentInChildren<Animator>();
+        
+        TryGetComponent<PlayerHealth>(out var pHealth);
+        if(pHealth != null)
+        {
+            pHealth.PlayerDied += (a, b) => inputActions.Combat.Disable();
+        }
     }
+
+    private void OnDisable()
+    {
+        inputActions.Combat.Disable();
+    }
+
     private void Update()
     {
         if (cooldown > 0f)

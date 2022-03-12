@@ -11,7 +11,7 @@ public class EnemyAI : MonoBehaviourPunCallbacks, IPunObservable
 {
     private enum State
     {
-        Roaming, ChaseTarget, ShootingTarget, Loitering
+        Roaming, ChaseTarget, ShootingTarget, Loitering, Dead
     }
 
     [Header("Layer Filters")]
@@ -28,6 +28,7 @@ public class EnemyAI : MonoBehaviourPunCallbacks, IPunObservable
     private State _state;
     private NavMeshAgent _agent;
     private EnemyShooting _shooter;
+    private EnemyHealth _health;
     private Animator _anim;
     private Vector3 _startingPos;
     private Vector3 _roamPos;
@@ -48,12 +49,14 @@ public class EnemyAI : MonoBehaviourPunCallbacks, IPunObservable
     {
         _anim = GetComponent<Animator>();
         _shooter = GetComponent<EnemyShooting>();
+        _health = GetComponent<EnemyHealth>();
         _targets = new List<Collider2D>();
         _agent = GetComponent<NavMeshAgent>();
         _agent.updateUpAxis = false;
         _agent.updateRotation = false;
         _startingPos = transform.position;
         _roamPos = GetRoamingPosition();
+        if(_health) _health.EnemyDied += _ => _state = State.Dead;
 
         _agent.SetDestination(_roamPos);
         transform.rotation = Quaternion.Euler(0, 0, transform.rotation.z);
@@ -77,6 +80,9 @@ public class EnemyAI : MonoBehaviourPunCallbacks, IPunObservable
                     break;
                 case State.Loitering:
                     Loiter();
+                    break;
+                case State.Dead:
+                    _agent.isStopped = true;
                     break;
             }
             Debug.Log(_state);
@@ -109,6 +115,11 @@ public class EnemyAI : MonoBehaviourPunCallbacks, IPunObservable
 
     private void ChaseTarget()
     {
+        if(_currentTarget == null)
+        {
+            _state = State.Roaming;
+            return;
+        }
         _agent.SetDestination(_currentTarget.transform.position);
         _anim.SetFloat("Speed", GetVector2Size(_agent.velocity));
         if (Vector3.Distance(transform.position, _currentTarget.transform.position) < attackRange)

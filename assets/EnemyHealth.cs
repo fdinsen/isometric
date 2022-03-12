@@ -50,7 +50,10 @@ public class EnemyHealth : MonoBehaviourPunCallbacks, IPunObservable
     public IEnumerator Die(int health)
     {
         yield return new WaitForSeconds(1f);
-        PhotonNetwork.Destroy(gameObject);
+        if(PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.Destroy(gameObject);
+        }
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

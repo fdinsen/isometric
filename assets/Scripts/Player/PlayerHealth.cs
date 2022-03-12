@@ -7,6 +7,7 @@ public class PlayerHealth : MonoBehaviourPunCallbacks, IPunObservable
 {
     [SerializeField] int maxHealth = 100;
     public int Health { get; private set; }
+    public int MaxHealth { get { return maxHealth; } private set { maxHealth = value; } }
     public delegate void HealthEvent(int health, int maxHealth);
     public event HealthEvent HealthChanged;
     public event HealthEvent PlayerDied;
@@ -57,7 +58,10 @@ public class PlayerHealth : MonoBehaviourPunCallbacks, IPunObservable
         yield return new WaitForSeconds(1f);
         Debug.Log(gameObject.tag + " has died and is going to disappear now!");
         //gameObject.SetActive(false);
-        PhotonNetwork.Destroy(gameObject);
+        if (photonView.IsMine)
+        {
+            PhotonNetwork.Destroy(gameObject);
+        }
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

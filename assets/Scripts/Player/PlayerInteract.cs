@@ -19,7 +19,12 @@ public class PlayerInteract : MonoBehaviour
         _playerInput.Movement.Interact.performed += ctx => Interact();
         DialogueManager.Instance.DialogueStarted += () => { _playerInput.Movement.Disable(); };
         DialogueManager.Instance.DialogueEnded += () => { _playerInput.Movement.Enable(); };
-    
+
+        TryGetComponent<PlayerHealth>(out var pHealth);
+        if (pHealth != null)
+        {
+            pHealth.PlayerDied += (a, b) => _playerInput.Movement.Disable();
+        }
     }
     void OnDisable()
     {
