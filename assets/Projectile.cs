@@ -34,5 +34,12 @@ public class Projectile : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+        if (((1 << col.gameObject.layer) & layers) != 0)
+        {
+            Destroy(gameObject);
+        }
+    }
 
 }
