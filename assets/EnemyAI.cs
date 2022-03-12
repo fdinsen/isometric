@@ -33,6 +33,7 @@ public class EnemyAI : MonoBehaviourPunCallbacks, IPunObservable
     private Vector3 _roamPos;
 
     private GameObject _currentTarget;
+    private PhotonView _targetView;
     private List<Collider2D> _targets;
 
     private float _timeUntilStopLoitering;
@@ -60,23 +61,27 @@ public class EnemyAI : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Update()
     {
-        switch( _state )
+        if (ViewHasOwnership())
         {
-            default:
-            case State.Roaming:
-                Roam();
-                break;
-            case State.ChaseTarget:
-                ChaseTarget();
-                break;
-            case State.ShootingTarget:
-                break;
-            case State.Loitering:
-                Loiter();
-                break;
+            switch( _state )
+            {
+                default:
+                case State.Roaming:
+                        Roam();
+                    break;
+                case State.ChaseTarget:
+                        ChaseTarget();
+                    break;
+                case State.ShootingTarget:
+                    _shooter.Shoot(GetPlayerDir(), () => _state = State.ChaseTarget);
+                    break;
+                case State.Loitering:
+                    Loiter();
+                    break;
+            }
+            Debug.Log(_state);
+            Debug.Log("target: " + _currentTarget);
         }
-        Debug.Log(_state);
-        Debug.Log("target: " + _currentTarget);
     }
 
     private void Roam()
@@ -111,7 +116,6 @@ public class EnemyAI : MonoBehaviourPunCallbacks, IPunObservable
             //Target within attack range
             _agent.isStopped = true;
             _state = State.ShootingTarget;
-            _shooter.Shoot(GetPlayerDir(), () => _state = State.ChaseTarget);
         }
         else
         {
@@ -142,6 +146,7 @@ public class EnemyAI : MonoBehaviourPunCallbacks, IPunObservable
         if (_targets.Count != 0)
         {
             _currentTarget = _targets[0].gameObject;
+            _targetView = _currentTarget.GetComponent<PhotonView>();
             _state = State.ChaseTarget;
         }
     }
@@ -181,6 +186,11 @@ public class EnemyAI : MonoBehaviourPunCallbacks, IPunObservable
             _roamPos = (Vector3)stream.ReceiveNext(); // always send in the same order we recieve
             _state = (State)stream.ReceiveNext();
         }
+    }
+
+    private bool ViewHasOwnership()
+    {
+        return PhotonNetwork.IsMasterClient;
     }
 
     private Vector2 GetPlayerDir()

@@ -56,7 +56,8 @@ public class PlayerHealth : MonoBehaviourPunCallbacks, IPunObservable
         Debug.Log(gameObject.tag + " has died and is going to disappear in 1s!");
         yield return new WaitForSeconds(1f);
         Debug.Log(gameObject.tag + " has died and is going to disappear now!");
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
+        PhotonNetwork.Destroy(gameObject);
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
