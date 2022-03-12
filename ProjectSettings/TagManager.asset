@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Crosshair
+  - TraumaManager
+  - OtherPlayer
   layers:
   - Default
   - TransparentFX
@@ -12,12 +15,12 @@ TagManager:
   - Water
   - UI
   - Ground
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Wall
+  - Enemy
+  - Player
+  - EnemyProjectile
+  - PlayerProjectile
+  - IgnoreAll
   - 
   - 
   - 

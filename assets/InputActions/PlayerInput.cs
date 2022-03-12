@@ -217,6 +217,34 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Combat"",
+            ""id"": ""2c0f7461-7b33-4be7-a416-e4eac08ff6c3"",
+            ""actions"": [
+                {
+                    ""name"": ""Shooting"",
+                    ""type"": ""Button"",
+                    ""id"": ""c0ae3090-6037-477d-b82d-90f4dad3f485"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""7e5d2dc2-367f-4c6d-a347-698b9934cf88"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shooting"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -229,6 +257,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         // Interaction
         m_Interaction = asset.FindActionMap("Interaction", throwIfNotFound: true);
         m_Interaction_Confirm = m_Interaction.FindAction("Confirm", throwIfNotFound: true);
+        // Combat
+        m_Combat = asset.FindActionMap("Combat", throwIfNotFound: true);
+        m_Combat_Shooting = m_Combat.FindAction("Shooting", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -366,6 +397,39 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         }
     }
     public InteractionActions @Interaction => new InteractionActions(this);
+
+    // Combat
+    private readonly InputActionMap m_Combat;
+    private ICombatActions m_CombatActionsCallbackInterface;
+    private readonly InputAction m_Combat_Shooting;
+    public struct CombatActions
+    {
+        private @PlayerInput m_Wrapper;
+        public CombatActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Shooting => m_Wrapper.m_Combat_Shooting;
+        public InputActionMap Get() { return m_Wrapper.m_Combat; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(CombatActions set) { return set.Get(); }
+        public void SetCallbacks(ICombatActions instance)
+        {
+            if (m_Wrapper.m_CombatActionsCallbackInterface != null)
+            {
+                @Shooting.started -= m_Wrapper.m_CombatActionsCallbackInterface.OnShooting;
+                @Shooting.performed -= m_Wrapper.m_CombatActionsCallbackInterface.OnShooting;
+                @Shooting.canceled -= m_Wrapper.m_CombatActionsCallbackInterface.OnShooting;
+            }
+            m_Wrapper.m_CombatActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Shooting.started += instance.OnShooting;
+                @Shooting.performed += instance.OnShooting;
+                @Shooting.canceled += instance.OnShooting;
+            }
+        }
+    }
+    public CombatActions @Combat => new CombatActions(this);
     public interface IMovementActions
     {
         void OnMovement(InputAction.CallbackContext context);
@@ -375,5 +439,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     public interface IInteractionActions
     {
         void OnConfirm(InputAction.CallbackContext context);
+    }
+    public interface ICombatActions
+    {
+        void OnShooting(InputAction.CallbackContext context);
     }
 }

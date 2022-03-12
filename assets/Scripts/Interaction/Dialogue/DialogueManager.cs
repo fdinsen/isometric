@@ -80,13 +80,62 @@ public class DialogueManager : MonoBehaviour
         if (currentStory.canContinue)
         {
             // set text for the current dialogue line
-            dialogueText.text = currentStory.Continue();
+            var story = currentStory.Continue();
+            if (story.Trim().Equals("")) ExitDialogueMode();
+            dialogueText.text = story;
+            
             // display choices, if any, for this dialogue line
             DisplayChoices();
+            // handle tags
+            HandleTags(currentStory.currentTags);
         }
         else
         {
             ExitDialogueMode();
+        }
+    }
+
+    public void HandleTags(List<string> currentTags)
+    {
+        //Loop through each tag for dialogue line
+        foreach (string tag in currentTags)
+        {
+            // parse the tag
+            string[] splitTag = tag.Split(':');
+            if (splitTag.Length != 2)
+            {
+                Debug.LogError("Tag could not be properly parsed: " + tag);
+            }
+            string tagKey = splitTag[0].Trim();
+            string tagValue = splitTag[1].Trim();
+            
+            // handle the tag
+            switch(tagKey)
+            {
+                case DiaTags.SPEAKER_TAG:
+                    Debug.Log("speaker=" + tagValue);
+                    break;
+                case DiaTags.PORTRAIT_TAG:
+                    Debug.Log("portrait=" + tagValue);
+                    break;
+                case DiaTags.LAYOUT_TAG:
+                    Debug.Log("layout=" + tagValue);
+                    break;
+                case DiaTags.HEAL_TAG:
+                    int percentHeal = int.Parse(tagValue) / 100;
+                    var p = GameObject.FindGameObjectWithTag("Player");
+                    if(p) { 
+                        var phealth = p.GetComponent<PlayerHealth>();
+                        if (phealth) { phealth.Heal(percentHeal * phealth.MaxHealth); }
+                    }
+                    break;
+                case DiaTags.AMMO_TAG:
+                    Debug.Log("ammo=" + tagValue);
+                    break;
+                default:
+                    Debug.LogWarning("Tag came in but is not currently being handled: " + tag);
+                    break;
+            }
         }
     }
 
@@ -127,4 +176,13 @@ public class DialogueManager : MonoBehaviour
         currentStory.ChooseChoiceIndex(choiceIndex);
         ContinueStory();
     }
+}
+
+public static class DiaTags
+{
+    public const string SPEAKER_TAG = "speaker";
+    public const string PORTRAIT_TAG = "portrait";
+    public const string LAYOUT_TAG = "layout";
+    public const string HEAL_TAG = "heal";
+    public const string AMMO_TAG = "ammo";
 }
