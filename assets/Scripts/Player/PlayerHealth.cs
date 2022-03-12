@@ -16,7 +16,7 @@ public class PlayerHealth : MonoBehaviourPunCallbacks, IPunObservable
 
     void Update()
     {
-        Debug.Log(gameObject.tag + " health: " + Health);
+        //Debug.Log(gameObject.tag + " health: " + Health);
     }
     void Start()
     {

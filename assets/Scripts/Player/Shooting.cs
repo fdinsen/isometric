@@ -23,7 +23,7 @@ public class Shooting : MonoBehaviour
             return;
         }
         _view = GetComponent<PhotonView>();
-        GameObject.FindGameObjectWithTag("TraumaManager").TryGetComponent(out _traumaManager);
+        GameObject.FindGameObjectWithTag("TraumaManager")?.TryGetComponent(out _traumaManager);
 
         inputActions = new PlayerInput();
         inputActions.Combat.Enable();
@@ -50,6 +50,8 @@ public class Shooting : MonoBehaviour
             _view.RPC("CreateBullets", RpcTarget.Others, bulletPrefab.name, firePoint.position, firePoint.rotation, firePoint.up, bulletForce, gameObject.GetInstanceID());
             
             cooldown = Cooldowntime;
+
+            Debug.Log("Shoot");
         }
     }
 
