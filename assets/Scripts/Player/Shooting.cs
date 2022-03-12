@@ -10,6 +10,7 @@ public class Shooting : MonoBehaviour
     [SerializeField] float bulletForce = 20f;
     [SerializeField] Animator anim;
     [SerializeField] float Cooldowntime = 1f;
+
     
     private float cooldown = 0f;
     private PlayerInput inputActions;

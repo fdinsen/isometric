@@ -136,4 +136,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layers:
     serializedVersion: 2
-    m_Bits: 896
+    m_Bits: 1920
+  dmg: 2
