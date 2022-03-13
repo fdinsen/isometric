@@ -27,11 +27,6 @@ public class EnemyHealth : MonoBehaviourPunCallbacks, IPunObservable
         _rb = GetComponent<Rigidbody2D>();
     }
 
-    private void Update()
-    {
-        Debug.Log("nmy hlth " + _health);
-    }
-
     public void DealDamage(int dmg, Vector2 hitdir)
     {
         _health -= dmg;

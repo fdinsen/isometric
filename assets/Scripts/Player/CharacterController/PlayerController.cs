@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
 
     private bool _facingRight = true;
 
-    private PlayerInput _inputActions;
+    public PlayerInput PlayerInput { get; private set; }
     void Awake()
     {
         _view = GetComponent<PhotonView>();
@@ -36,13 +36,9 @@ public class PlayerController : MonoBehaviour
             _camera.gameObject.SetActive(false);
             return;
         }
-        _inputActions = new PlayerInput();
-        _inputActions.Movement.Enable();
-        if(DialogueManager.Instance != null)
-        {
-            DialogueManager.Instance.DialogueStarted += () => _inputActions.Movement.Disable();
-            DialogueManager.Instance.DialogueEnded += () => _inputActions.Movement.Enable();
-        }
+        PlayerInput = new PlayerInput();
+        PlayerInput.Movement.Enable();
+
         if(_phealth != null)
         {
             _phealth.PlayerDied += (a, b) => ToggleMovement(false);
@@ -54,7 +50,7 @@ public class PlayerController : MonoBehaviour
     {
         if (_view.IsMine)
         {
-            Move(_inputActions.Movement.Movement.ReadValue<Vector2>());
+            Move(PlayerInput.Movement.Movement.ReadValue<Vector2>());
         }
     }
 
@@ -97,8 +93,24 @@ public class PlayerController : MonoBehaviour
     {
         if (doEnable) 
         { 
-            _inputActions.Movement.Enable(); return; 
+            PlayerInput.Movement.Enable(); return; 
         }
-        _inputActions.Movement.Disable();
+        PlayerInput.Movement.Disable();
     }
+
+    public void PlayAttackAnimation()
+    {
+        _spriteAnim.SetTrigger("Attack");
+    }
+
+    public void PlayHurtAnimation()
+    {
+        _spriteAnim.SetTrigger("Hurt");
+    }
+
+    public void PlayDeathAnimation()
+    {
+        _spriteAnim.SetBool("Dead", true);
+    }
+
 }

@@ -79,6 +79,12 @@ public class PerlinCameraShake : MonoBehaviour
     [Tooltip("Specifies how fast the shaking will decay to zero.")]
     private float _decay = 2f;
 
+    [Header("Camera Shake Limit")]
+    [SerializeField]
+    [Range(0, 1)]
+    [Tooltip("Limits the maximium shake")]
+    private float _maxShake = 1;
+
     public float Trauma
     {
         get => _trauma;
@@ -223,6 +229,7 @@ public class PerlinCameraShake : MonoBehaviour
         while (!Mathf.Approximately(_trauma, 0))
         {
             //TODO: Implement shake 'ramp-up', i.e. smooth out the transition to the first Perlin offset.
+            _trauma = Mathf.Clamp(_trauma, 0, _maxShake); // Limit shake
 
             // Offset sampling point
             _sharedSamplingPoint += Time.deltaTime * Mathf.Pow(_trauma, FREQUENCY_DECAY) * _frequency;

@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &609327281937514635
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 495443781537903097, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495443781537903097, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495443781537903097, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495443781537903097, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495443781537903097, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 495443781537903097, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495443781537903097, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495443781537903097, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495443781537903097, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495443781537903097, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495443781537903097, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1293848730582550201, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
+      propertyPath: m_Name
+      value: Handgun
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 4665023428706789726, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
+--- !u!1 &1837591241443870258 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1293848730582550201, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
+  m_PrefabInstance: {fileID: 609327281937514635}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &647744298248977972 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 38707133754982079, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
+  m_PrefabInstance: {fileID: 609327281937514635}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &3024596548058056226 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2417664880095561385, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
+  m_PrefabInstance: {fileID: 609327281937514635}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2780953851300709937 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3378593778441881274, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
+  m_PrefabInstance: {fileID: 609327281937514635}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5288176530781544058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1837591241443870258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfee36f194cf5fb42a207fe3ccb6ff7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firePoint: {fileID: 2780953851300709937}
+  fireDir: {fileID: 647744298248977972}
+  weaponTracerMaterial: {fileID: 2100000, guid: 1eb0751e224cee84997e70147d24240d, type: 2}
+  tracerWidth: 0.25
+  tracerWorldSize: 8
+  tracerLifetime: 0.1
+  damage: 1
+  range: 100
+  shootFlashSprite: {fileID: 21300000, guid: a6bca1a5203c3974cb33ccd075bb9a3b, type: 3}
+  secondsBetweenShots: 0.2
+  _gunAnimator: {fileID: 3024596548058056226}

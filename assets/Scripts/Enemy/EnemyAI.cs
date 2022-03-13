@@ -85,8 +85,6 @@ public class EnemyAI : MonoBehaviourPunCallbacks, IPunObservable
                     _agent.isStopped = true;
                     break;
             }
-            Debug.Log(_state);
-            Debug.Log("target: " + _currentTarget);
         }
     }
 
@@ -169,18 +167,6 @@ public class EnemyAI : MonoBehaviourPunCallbacks, IPunObservable
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, attackRange);
 
-    }
-
-    private IEnumerator testDelay(Action whenFinished )
-    {
-        //EXPLAINED: So when a weapon on the enemy has been implemented,
-        // the shooting function should have an overload that takes a function as a parameter
-        // which is run when the shooting animation finishes. 
-        //In here we then give a function that changes the state back to ChaseTarget.
-        //That way we can have the enemy stand still for the duration of the animation, and then start moving again!!
-        Debug.Log("bang bang");
-        yield return new WaitForSeconds(.5f);
-        whenFinished();
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

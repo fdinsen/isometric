@@ -132,6 +132,14 @@ public class DialogueManager : MonoBehaviour
                 case DiaTags.AMMO_TAG:
                     Debug.Log("ammo=" + tagValue);
                     break;
+                case DiaTags.WEAPON_TAG:
+                    var pl = GameObject.FindGameObjectWithTag("Player");
+                    if(pl)
+                    {
+                        var swapper = pl.GetComponent<WeaponSwapHandler>();
+                        if(swapper) { swapper.SwapWeaponSlot1(tagValue); }
+                    }
+                    break;
                 default:
                     Debug.LogWarning("Tag came in but is not currently being handled: " + tag);
                     break;
@@ -185,4 +193,5 @@ public static class DiaTags
     public const string LAYOUT_TAG = "layout";
     public const string HEAL_TAG = "heal";
     public const string AMMO_TAG = "ammo";
+    public const string WEAPON_TAG = "weapon";
 }

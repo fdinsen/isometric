@@ -11,10 +11,27 @@ public class Projectile : MonoBehaviour
     [SerializeField] int dmg = 1;
 
     private Rigidbody2D _rb;
+    private float lifetime = 10f;
+    private float deathTime;
     // Start is called before the first frame update
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+        deathTime = Time.time + lifetime;
+    }
+
+
+    private void Update()
+    {
+        if(Time.time > deathTime)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void SetDamage(int dmg)
+    {
+        this.dmg = dmg;
     }
 
     private void OnTriggerEnter2D(Collider2D col)

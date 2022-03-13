@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
+[RequireComponent(typeof(PlayerController))]
 public class PlayerHealth : MonoBehaviourPunCallbacks, IPunObservable
 {
     [SerializeField] int maxHealth = 100;
@@ -12,7 +13,7 @@ public class PlayerHealth : MonoBehaviourPunCallbacks, IPunObservable
     public event HealthEvent HealthChanged;
     public event HealthEvent PlayerDied;
 
-    private Animator _anim;
+    private PlayerController _player;
     //private PhotonView view;
 
     void Update()
@@ -23,7 +24,7 @@ public class PlayerHealth : MonoBehaviourPunCallbacks, IPunObservable
     {
         HealthChanged += (a, b) => { }; // do nothing action
         //Testing code end
-        _anim = GetComponentInChildren<Animator>();
+        _player = GetComponentInChildren<PlayerController>();
         PlayerDied += (a, b) => StartCoroutine(Die());
         Health = 100;
         HealthChanged.Invoke(Health, maxHealth);
@@ -33,7 +34,7 @@ public class PlayerHealth : MonoBehaviourPunCallbacks, IPunObservable
     public void DealDamage(int amnt)
     {
         Health -= amnt;
-        _anim.SetTrigger("Hurt");
+        _player.PlayHurtAnimation();
         HealthChanged.Invoke(Health, maxHealth);
         if(Health <= 0)
         {
@@ -53,10 +54,9 @@ public class PlayerHealth : MonoBehaviourPunCallbacks, IPunObservable
 
     public IEnumerator Die()
     {
-        _anim.SetBool("Dead", true);
-        Debug.Log(gameObject.tag + " has died and is going to disappear in 1s!");
+        _player.PlayDeathAnimation();
         yield return new WaitForSeconds(1f);
-        Debug.Log(gameObject.tag + " has died and is going to disappear now!");
+       
         //gameObject.SetActive(false);
         if (photonView.IsMine)
         {

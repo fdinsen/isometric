@@ -15,6 +15,7 @@ public class FirePoint_Rotation : MonoBehaviour
     private void Start()
     {
         _startPos = transform.localPosition;
+        cam = Camera.main;
     }
 
     void Update()
