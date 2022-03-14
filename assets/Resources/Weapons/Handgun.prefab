@@ -98,14 +98,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfee36f194cf5fb42a207fe3ccb6ff7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxAmmo: 21
+  currentAmmo: 0
+  reloadTime: 3
   firePoint: {fileID: 2780953851300709937}
   fireDir: {fileID: 647744298248977972}
   weaponTracerMaterial: {fileID: 2100000, guid: 1eb0751e224cee84997e70147d24240d, type: 2}
   tracerWidth: 0.25
   tracerWorldSize: 8
-  tracerLifetime: 0.1
   damage: 1
-  range: 100
   shootFlashSprite: {fileID: 21300000, guid: a6bca1a5203c3974cb33ccd075bb9a3b, type: 3}
   secondsBetweenShots: 0.2
   _gunAnimator: {fileID: 3024596548058056226}

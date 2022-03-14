@@ -21,11 +21,11 @@ public class Handgun : IWeapon
     [SerializeField] private Material weaponTracerMaterial;
     [SerializeField] private float tracerWidth = .25f;
     [SerializeField] private float tracerWorldSize = 8f;
-    [SerializeField] private float tracerLifetime = .1f;
+    //[SerializeField] private float tracerLifetime = .1f;
 
     [Header("Bullet Settings")]
     [SerializeField] int damage = 1;
-    [SerializeField] float range = 100f;
+    //[SerializeField] float range = 100f;
 
     [Header("Flash")]
     [SerializeField] private Sprite shootFlashSprite; 
@@ -46,6 +46,7 @@ public class Handgun : IWeapon
     // Start is called before the first frame update
     void Start()
     {
+        base.Start();
         if (gameObject.CompareTag("OtherPlayer"))
         {
             return;
@@ -71,8 +72,19 @@ public class Handgun : IWeapon
 
     public override void Shoot(Vector3 target, Action onShoot)
     {
+        Debug.Log(currentAmmo);
+        if (isReloading) return;
+
+        if (currentAmmo <= 0)
+        {
+            StartCoroutine(Reload());
+            return;
+        }
+
         if (Time.time > cooldown)
         {
+            currentAmmo--;
+            InvokeEvent(currentAmmo, maxAmmo);
             onShoot();
             CreateWeaponTracer(firePoint.position, target);
             CreateShootFlash(firePoint.position);
@@ -86,6 +98,8 @@ public class Handgun : IWeapon
             cooldown = Time.time + secondsBetweenShots;
         }
     }
+
+    
 
     [PunRPC]
     void CreateWeaponTracer(Vector3 fromPosition, Vector3 targetPosition)

@@ -13,7 +13,9 @@ public class Pistol : IWeapon
     [Header("Bullet")]
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] float bulletForce = 20f;
-    [SerializeField] int damage = 1;
+    [SerializeField] int damage = 2;
+
+    
 
     [Header("Gun Behaviour")]
     [SerializeField] float secondsBetweenShots = 1f;
@@ -28,6 +30,7 @@ public class Pistol : IWeapon
     // Start is called before the first frame update
     void Start()
     {
+        base.Start();
         if (gameObject.CompareTag("OtherPlayer"))
         {
             return;
@@ -53,8 +56,19 @@ public class Pistol : IWeapon
 
     public override void Shoot(Vector3 dir, Action onShoot)
     {
+        Debug.Log(currentAmmo);
+        if (isReloading) return;
+
+        if (currentAmmo <= 0)
+        {
+            StartCoroutine(Reload());
+                return;
+        }
+
         if (Time.time > cooldown)
         {
+            currentAmmo--;
+            InvokeEvent(currentAmmo, maxAmmo);
             onShoot();
             _traumaManager?.AddTrauma(0.4f);
             _gunAnimator?.SetTrigger("Attack");

@@ -64,7 +64,7 @@ public class EnemyAI : MonoBehaviourPunCallbacks, IPunObservable
 
     private void FixedUpdate()
     {
-        if (_targets.Count > 0) Debug.Log(_targets[0].gameObject.name);
+        
         if (ViewHasOwnership())
         {
             switch (_state)
@@ -92,7 +92,7 @@ public class EnemyAI : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Roam()
     {
-        Debug.Log("Roam");
+        
         _anim.SetFloat("Speed", GetVector2Size(_agent.velocity));
         float reachedPositionDistance = 2f;
         if (Vector3.Distance(transform.position, _roamPos) < reachedPositionDistance)
@@ -106,7 +106,7 @@ public class EnemyAI : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Loiter()
     {
-        Debug.Log("Loiter");
+        
         if (Time.time > _timeUntilStopLoitering)
         {
             _roamPos = GetRoamingPosition();
@@ -117,7 +117,7 @@ public class EnemyAI : MonoBehaviourPunCallbacks, IPunObservable
 
     private void ChaseTarget()
     {
-        Debug.Log("Chase");
+        
         if (_currentTarget == null)
         {
             _state = State.Roaming;
@@ -156,12 +156,8 @@ public class EnemyAI : MonoBehaviourPunCallbacks, IPunObservable
 
     public void FindTarget()
     {
-        Debug.Log("Find target");
+       
         Physics2D.OverlapCircle(transform.position, sightRange, targetFilter, _targets);
-        foreach(var target in _targets)
-        {
-            Debug.Log("HI: " + target.gameObject.name);
-        }
         if (_targets.Count != 0)
         {
             _currentTarget = _targets[0].gameObject;
