@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class WeaponSlot : MonoBehaviourPunCallbacks, IPunObservable
 {
+    [SerializeField] private GameObject _slotObject;
     [SerializeField] private GameObject _equippedWeapon;
     [SerializeField] private string _weaponName = "Pistol"; //synced
 
@@ -63,7 +64,7 @@ public class WeaponSlot : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (_view.IsMine)
         {
-            var spawnedObject = PhotonNetwork.Instantiate("Weapons/" + weaponName, transform.position, transform.rotation);
+            var spawnedObject = PhotonNetwork.Instantiate("Weapons/" + weaponName, _slotObject.transform.position, _slotObject.transform.rotation);
             _weaponViewId = spawnedObject.GetComponent<PhotonView>().ViewID;
             spawnedObject.TryGetComponent<IWeapon>(out var weapon);
             DoEquipObject(spawnedObject);
@@ -84,8 +85,8 @@ public class WeaponSlot : MonoBehaviourPunCallbacks, IPunObservable
 
     private void DoEquipObject(GameObject objectToEquip)
     {
-        objectToEquip.transform.SetParent(gameObject.transform);
-        objectToEquip.transform.localPosition = gameObject.transform.localPosition;
+        objectToEquip.transform.SetParent(_slotObject.transform);
+        objectToEquip.transform.localPosition = _slotObject.transform.localPosition;
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

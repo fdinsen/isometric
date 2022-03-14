@@ -59,7 +59,6 @@ public class Pistol : IWeapon
             _traumaManager?.AddTrauma(0.4f);
             _gunAnimator?.SetTrigger("Attack");
 
-            Debug.Log(dir);
             CreateBullets(bulletPrefab.name, firePoint.transform.position, fireDir.transform.rotation, dir, bulletForce);
             _view.RPC("CreateBullets", RpcTarget.Others, bulletPrefab.name, firePoint.transform.position, fireDir.transform.rotation, dir, bulletForce);
 
