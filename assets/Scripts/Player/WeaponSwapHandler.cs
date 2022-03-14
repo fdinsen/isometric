@@ -9,8 +9,6 @@ public class WeaponSwapHandler : MonoBehaviour
 
     public void SwapWeaponSlot1(string weaponName)
     {
-        GameObject newWeapon = Resources.Load<GameObject>("Weapons/" + weaponName);
-        var spawned = Instantiate(newWeapon);
-        slot1.EquippedWeapon = spawned;
+        slot1.EquipWeapon(weaponName);
     }
 }

@@ -80,7 +80,8 @@ public class Handgun : IWeapon
             _gunAnimator?.SetTrigger("Attack");
 
             //CreateBullets(bulletPrefab.name, firePoint.position, firePoint.rotation, dir, bulletForce);
-            //_view.RPC("CreateBullets", RpcTarget.Others, bulletPrefab.name, firePoint.position, firePoint.rotation, dir, bulletForce);
+            _view.RPC("CreateWeaponTracer", RpcTarget.Others, firePoint.position, target);
+            _view.RPC("CreateShootFlash", RpcTarget.Others, firePoint.position);
 
             cooldown = Time.time + secondsBetweenShots;
         }

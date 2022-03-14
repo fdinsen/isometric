@@ -15,15 +15,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Test",
-                    "type": "Button",
-                    "id": "0d0823d6-9086-4f99-8e10-060368f6f520",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Interact",
                     "type": "Button",
                     "id": "f517d47d-9bb6-4734-b679-8b1ba6770368",
@@ -146,17 +137,6 @@
                 },
                 {
                     "name": "",
-                    "id": "9f556840-f54b-47e5-8a53-0faf314c2033",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Test",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "5bf91502-ab70-458c-827e-2d77a916fc93",
                     "path": "<Keyboard>/e",
                     "interactions": "",
@@ -250,6 +230,34 @@
                     "processors": "",
                     "groups": "",
                     "action": "SwitchWeapons",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "MenuControls",
+            "id": "b5df3f6b-4537-46a7-9842-ad26b37b5788",
+            "actions": [
+                {
+                    "name": "Exit",
+                    "type": "Button",
+                    "id": "373e949e-4519-4cac-835a-ba3221c55ee6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "cf948215-c746-44f7-a38f-88099d555b6c",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Exit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

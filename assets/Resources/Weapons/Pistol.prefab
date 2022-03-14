@@ -53,13 +53,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1293848730582550201, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
       propertyPath: m_Name
-      value: Pistol Variant
+      value: Pistol
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
 --- !u!1 &2674424658180949505 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1293848730582550201, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
+  m_PrefabInstance: {fileID: 3812820031903711416}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &472453650361595031 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3632053635157783599, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
+  m_PrefabInstance: {fileID: 3812820031903711416}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &448307694166094683 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3661829909753721827, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
   m_PrefabInstance: {fileID: 3812820031903711416}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &4736653742197176945
@@ -74,8 +84,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46e09c84981ea26419844756f684c464, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firePoint: {fileID: 3378593778441881274, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
-  fireDir: {fileID: 38707133754982079, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
+  firePoint: {fileID: 448307694166094683}
+  fireDir: {fileID: 472453650361595031}
   bulletPrefab: {fileID: 1628897354262997406, guid: 346a02666811f6e4ab14d01380058a79, type: 3}
   bulletForce: 20
   damage: 1

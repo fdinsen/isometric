@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     public PlayerInput PlayerInput { get; private set; }
     void Awake()
     {
+        //All players execute following
         _view = GetComponent<PhotonView>();
         if(_rb == null) _rb = GetComponent<Rigidbody2D>();
         if(_spriteAnim == null) _spriteAnim = GetComponentInChildren<Animator>();
@@ -36,6 +37,8 @@ public class PlayerController : MonoBehaviour
             _camera.gameObject.SetActive(false);
             return;
         }
+
+        //Only owner executes following
         PlayerInput = new PlayerInput();
         PlayerInput.Movement.Enable();
 
@@ -43,7 +46,7 @@ public class PlayerController : MonoBehaviour
         {
             _phealth.PlayerDied += (a, b) => ToggleMovement(false);
         }
-        
+        PlayerInput.MenuControls.Exit.performed += ctx => ExitGame();
     }
 
     private void FixedUpdate()
@@ -113,4 +116,10 @@ public class PlayerController : MonoBehaviour
         _spriteAnim.SetBool("Dead", true);
     }
 
+    void ExitGame()
+    {
+        Debug.Log("Closing game..");
+        PhotonNetwork.Disconnect();
+        Application.Quit();
+    }
 }

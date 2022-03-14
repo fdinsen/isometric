@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,24 +6,27 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerController))]
 public class PlayerInteract : MonoBehaviour
 {
-
     [SerializeField] private float interactDistance = 1f;
     [SerializeField] private LayerMask interactableLayers = new LayerMask();
 
     private PlayerController _player;
+    private PhotonView _view;
 
     // Start is called before the first frame update
     void Start()
     {
-        _player = GetComponent<PlayerController>();
-        _player.PlayerInput.Movement.Enable();
+        _view = GetComponent<PhotonView>();
+        if (_view.IsMine)
+        {
+            _player = GetComponent<PlayerController>();
+            _player.PlayerInput.Movement.Enable();
 
-        _player.PlayerInput.Movement.Interact.performed += ctx => Interact();
-        DialogueManager.Instance.DialogueStarted += () => { _player.PlayerInput.Movement.Disable(); };
-        DialogueManager.Instance.DialogueEnded += () => { _player.PlayerInput.Movement.Enable(); };
+            _player.PlayerInput.Movement.Interact.performed += ctx => Interact();
+            DialogueManager.Instance.DialogueStarted += () => { _player.PlayerInput.Movement.Disable(); };
+            DialogueManager.Instance.DialogueEnded += () => { _player.PlayerInput.Movement.Enable(); };
+        }
     }
 
-    // Update is called once per frame
     void Interact()
     {
         var interacted = Physics.OverlapSphere(transform.position, interactDistance, interactableLayers);

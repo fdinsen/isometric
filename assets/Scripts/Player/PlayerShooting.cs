@@ -29,12 +29,6 @@ public class PlayerShooting : MonoBehaviour
         }
     }
 
-    private void OnDisable()
-    {
-        _player.PlayerInput.Combat.Disable();
-    }
-
-
     void Shoot()
     {
         _slot.ShootWeapon(() => _player.PlayAttackAnimation());

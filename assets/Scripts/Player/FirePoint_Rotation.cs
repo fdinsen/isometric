@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,23 +11,26 @@ public class FirePoint_Rotation : MonoBehaviour
    
 
     Vector2 mousePos;
-
+    PhotonView _view;
     // Update is called once per frame
     private void Start()
     {
+        _view = GetComponent<PhotonView>();
         _startPos = transform.localPosition;
         cam = Camera.main;
     }
 
     void Update()
     {
-        mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+        if(_view.IsMine)
+        {
+            mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
 
-        Vector2 lookDir = mousePos - rb.position;
-        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
-        rb.rotation = angle;
+            Vector2 lookDir = mousePos - rb.position;
+            float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
+            rb.rotation = angle;
 
-        transform.localPosition = _startPos;
-
+            transform.localPosition = _startPos;
+        }
     }
 }

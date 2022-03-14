@@ -7,8 +7,8 @@ using Photon.Pun;
 public class Pistol : IWeapon
 {
     [Header("Firing Direction Setup")]
-    [SerializeField] Transform firePoint;
-    [SerializeField] Transform fireDir;
+    [SerializeField] GameObject firePoint;
+    [SerializeField] GameObject fireDir;
 
     [Header("Bullet")]
     [SerializeField] GameObject bulletPrefab;
@@ -38,7 +38,7 @@ public class Pistol : IWeapon
     }
     public override void Shoot()
     {
-        Shoot(fireDir.up, () => { });
+        Shoot(fireDir.transform.up, () => { });
     }
 
     public override void Shoot(Vector3 dir)
@@ -48,7 +48,7 @@ public class Pistol : IWeapon
 
     public override void Shoot(Action onShoot)
     {
-        Shoot(fireDir.up, onShoot);
+        Shoot(fireDir.transform.up, onShoot);
     }
 
     public override void Shoot(Vector3 dir, Action onShoot)
@@ -59,8 +59,9 @@ public class Pistol : IWeapon
             _traumaManager?.AddTrauma(0.4f);
             _gunAnimator?.SetTrigger("Attack");
 
-            CreateBullets(bulletPrefab.name, firePoint.position, firePoint.rotation, dir, bulletForce);
-            _view.RPC("CreateBullets", RpcTarget.Others, bulletPrefab.name, firePoint.position, firePoint.rotation, dir, bulletForce);
+            Debug.Log(dir);
+            CreateBullets(bulletPrefab.name, firePoint.transform.position, fireDir.transform.rotation, dir, bulletForce);
+            _view.RPC("CreateBullets", RpcTarget.Others, bulletPrefab.name, firePoint.transform.position, fireDir.transform.rotation, dir, bulletForce);
 
             cooldown = Time.time + secondsBetweenShots;
         }

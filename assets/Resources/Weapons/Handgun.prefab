@@ -55,8 +55,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Handgun
       objectReference: {fileID: 0}
+    - target: {fileID: 2248770542707874606, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
+      propertyPath: ObservedComponents.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2248770542707874606, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
+      propertyPath: ObservedComponents.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 4665023428706789726, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
 --- !u!1 &1837591241443870258 stripped
 GameObject:
