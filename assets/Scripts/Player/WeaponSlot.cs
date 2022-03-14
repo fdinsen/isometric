@@ -13,25 +13,28 @@ public class WeaponSlot : MonoBehaviourPunCallbacks, IPunObservable
 
     public GameObject EquippedWeapon { get { return _equippedWeapon; } }
 
-    private IWeapon _weapon; //Reference to IWeapon script
+    public IWeapon WeaponScript { get; private set; } //Reference to IWeapon script
     private PhotonView _view;
     private int _weaponViewId; //synced
+
+    public delegate void WeaponEvent(string weaponName);
+    public event WeaponEvent WeaponSwapped;
 
     // Start is called before the first frame update
     void Start()
     {
+        WeaponSwapped += wname => { };
         _view = GetComponent<PhotonView>();
         if (_view.IsMine)
         {
             // owner equip
             PerformEquip(CreateWeaponAsOwner(_weaponName));
+            WeaponSwapped.Invoke(_weaponName);
         }
         else
         {
             // Local equip
-            var equippedWeaponView = PhotonView.Find(_weaponViewId);
-            AttachObject(equippedWeaponView.gameObject);
-            _weapon = equippedWeaponView.gameObject.GetComponent<IWeapon>();
+            ProporgateWeaponSwap();
         }
     }
 
@@ -42,19 +45,19 @@ public class WeaponSlot : MonoBehaviourPunCallbacks, IPunObservable
     //Shooting
     public void ShootWeapon(Action onShoot)
     {
-        _weapon.Shoot(onShoot);
+        WeaponScript.Shoot(onShoot);
     }
     public void ShootWeapon(Vector3 dir, Action onShoot)
     {
-        _weapon.Shoot(dir, onShoot);
+        WeaponScript.Shoot(dir, onShoot);
     }
     public void ShootWeapon(Vector3 dir)
     {
-        _weapon.Shoot(dir);
+        WeaponScript.Shoot(dir);
     }
     public void ShootWeapon()
     {
-        _weapon.Shoot();
+        WeaponScript.Shoot();
     }
 
     //Equipping
@@ -63,13 +66,15 @@ public class WeaponSlot : MonoBehaviourPunCallbacks, IPunObservable
         if (_view.IsMine)
         {
             PerformEquip(CreateWeaponAsOwner(weaponName));
+            WeaponSwapped.Invoke(weaponName);
         }
     }
 
     [PunRPC]
-    public void ProporgateWeaponSwap(string weaponName)
+    public void ProporgateWeaponSwap()
     {
-        
+        var equippedWeaponView = PhotonView.Find(_weaponViewId);
+        PerformEquip(equippedWeaponView.gameObject);
     }
 
     private GameObject CreateWeaponAsOwner(string weaponName)
@@ -86,15 +91,14 @@ public class WeaponSlot : MonoBehaviourPunCallbacks, IPunObservable
             Debug.LogError($"Attempted to equip non-weapon in {gameObject.name}! GameObject: {weaponObject.name}");
 
         AttachObject(weaponObject);
-        _weapon = weapon;
-        if (weaponObject != _equippedWeapon)
+        WeaponScript = weapon;
+        if (weaponObject != _equippedWeapon && _view.IsMine)
         {
             // TODO Implement dropping weapon
             var prevEquipped = _equippedWeapon;
-            _equippedWeapon = weaponObject;
             if (prevEquipped != null) PhotonNetwork.Destroy(prevEquipped);
-            return;
         }
+        _equippedWeapon = weaponObject;
     }
 
     private void AttachObject(GameObject objectToAttach)
