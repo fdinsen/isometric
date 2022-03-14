@@ -30,7 +30,6 @@ public class WeaponSlot : MonoBehaviourPunCallbacks, IPunObservable
         {
             // Local equip
             var equippedWeaponView = PhotonView.Find(_weaponViewId);
-            Debug.Log(equippedWeaponView);
             DoEquipObject(equippedWeaponView.gameObject);
             _weapon = equippedWeaponView.gameObject.GetComponent<IWeapon>();
         }
@@ -38,7 +37,6 @@ public class WeaponSlot : MonoBehaviourPunCallbacks, IPunObservable
 
     void Update()
     {
-        Debug.Log(_weaponViewId);
     }
 
     //Shooting
@@ -67,6 +65,9 @@ public class WeaponSlot : MonoBehaviourPunCallbacks, IPunObservable
             var spawnedObject = PhotonNetwork.Instantiate("Weapons/" + weaponName, _slotObject.transform.position, _slotObject.transform.rotation);
             _weaponViewId = spawnedObject.GetComponent<PhotonView>().ViewID;
             spawnedObject.TryGetComponent<IWeapon>(out var weapon);
+            if(weapon == null)
+                Debug.LogError($"Attempted to equip non-weapon in {gameObject.name}! GameObject: {weaponName}");
+
             DoEquipObject(spawnedObject);
             _weapon = weapon;
             if (spawnedObject != _equippedWeapon)
@@ -77,9 +78,6 @@ public class WeaponSlot : MonoBehaviourPunCallbacks, IPunObservable
                 if(prevEquipped != null) PhotonNetwork.Destroy(prevEquipped);
                 return;
             }
-            
-
-            //Debug.LogError($"Attempted to equip non-weapon in {gameObject.name}! GameObject: {toEquip.name}");
         }
     }
 

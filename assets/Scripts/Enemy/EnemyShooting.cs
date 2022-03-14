@@ -18,7 +18,6 @@ public class EnemyShooting : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _anim = GetComponentInChildren<Animator>();
         _view = GetComponent<PhotonView>();
     }
 

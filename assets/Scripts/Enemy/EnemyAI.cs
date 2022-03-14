@@ -38,7 +38,7 @@ public class EnemyAI : MonoBehaviourPunCallbacks, IPunObservable
     private List<Collider2D> _targets;
 
     private float _timeUntilStopLoitering;
-    
+
     private void Awake()
     {
         _state = State.Roaming;
@@ -47,7 +47,7 @@ public class EnemyAI : MonoBehaviourPunCallbacks, IPunObservable
     // Start is called before the first frame update
     void Start()
     {
-        _anim = GetComponent<Animator>();
+        _anim = GetComponentInChildren<Animator>();
         _shooter = GetComponent<EnemyShooting>();
         _health = GetComponent<EnemyHealth>();
         _targets = new List<Collider2D>();
@@ -56,24 +56,26 @@ public class EnemyAI : MonoBehaviourPunCallbacks, IPunObservable
         _agent.updateRotation = false;
         _startingPos = transform.position;
         _roamPos = GetRoamingPosition();
-        if(_health) _health.EnemyDied += _ => _state = State.Dead;
+        if (_health) _health.EnemyDied += _ => _state = State.Dead;
 
         _agent.SetDestination(_roamPos);
         transform.rotation = Quaternion.Euler(0, 0, transform.rotation.z);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
+        if (_targets.Count > 0) Debug.Log(_targets[0].gameObject.name);
         if (ViewHasOwnership())
         {
-            switch( _state )
+            switch (_state)
             {
                 default:
+                    break;
                 case State.Roaming:
-                        Roam();
+                    Roam();
                     break;
                 case State.ChaseTarget:
-                        ChaseTarget();
+                    ChaseTarget();
                     break;
                 case State.ShootingTarget:
                     _shooter.Shoot(GetPlayerDir(), () => _state = State.ChaseTarget);
@@ -90,6 +92,7 @@ public class EnemyAI : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Roam()
     {
+        Debug.Log("Roam");
         _anim.SetFloat("Speed", GetVector2Size(_agent.velocity));
         float reachedPositionDistance = 2f;
         if (Vector3.Distance(transform.position, _roamPos) < reachedPositionDistance)
@@ -103,7 +106,8 @@ public class EnemyAI : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Loiter()
     {
-        if(Time.time > _timeUntilStopLoitering)
+        Debug.Log("Loiter");
+        if (Time.time > _timeUntilStopLoitering)
         {
             _roamPos = GetRoamingPosition();
             _agent.SetDestination(_roamPos);
@@ -113,7 +117,8 @@ public class EnemyAI : MonoBehaviourPunCallbacks, IPunObservable
 
     private void ChaseTarget()
     {
-        if(_currentTarget == null)
+        Debug.Log("Chase");
+        if (_currentTarget == null)
         {
             _state = State.Roaming;
             return;
@@ -129,7 +134,7 @@ public class EnemyAI : MonoBehaviourPunCallbacks, IPunObservable
         else
         {
             _agent.isStopped = false;
-            if(Vector3.Distance(transform.position, _currentTarget.transform.position) > loseSightDistance)
+            if (Vector3.Distance(transform.position, _currentTarget.transform.position) > loseSightDistance)
             {
                 // Too far, stop chasing
                 _currentTarget = null;
@@ -142,7 +147,7 @@ public class EnemyAI : MonoBehaviourPunCallbacks, IPunObservable
     public Vector3 GetRoamingPosition()
     {
         var loc = _startingPos + UtilsClass.GetRandomDir() * UnityEngine.Random.Range(3f, 10f);
-        if(Physics2D.OverlapCircle(loc, 1f, blockedLocations))
+        if (Physics2D.OverlapCircle(loc, 1f, blockedLocations))
         {
             loc = GetRoamingPosition();
         }
@@ -151,7 +156,12 @@ public class EnemyAI : MonoBehaviourPunCallbacks, IPunObservable
 
     public void FindTarget()
     {
+        Debug.Log("Find target");
         Physics2D.OverlapCircle(transform.position, sightRange, targetFilter, _targets);
+        foreach(var target in _targets)
+        {
+            Debug.Log("HI: " + target.gameObject.name);
+        }
         if (_targets.Count != 0)
         {
             _currentTarget = _targets[0].gameObject;

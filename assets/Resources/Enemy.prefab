@@ -40,8 +40,8 @@ GameObject:
   m_Component:
   - component: {fileID: 9178173360129086911}
   - component: {fileID: 9178173360129086910}
-  - component: {fileID: 2543292425628135098}
-  - component: {fileID: 7814647534152836109}
+  - component: {fileID: 1730050201446928431}
+  - component: {fileID: 3178929567965446159}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -114,7 +114,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
---- !u!95 &2543292425628135098
+--- !u!95 &1730050201446928431
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
@@ -133,7 +133,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &7814647534152836109
+--- !u!114 &3178929567965446159
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -176,7 +176,6 @@ GameObject:
   - component: {fileID: 9178173360442169849}
   - component: {fileID: 9178173360442169854}
   - component: {fileID: 9178173360442169851}
-  - component: {fileID: 2838572943212141576}
   - component: {fileID: 9001159650874468709}
   - component: {fileID: 3552698302307575783}
   - component: {fileID: 9178173360442169855}
@@ -280,25 +279,6 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!95 &2838572943212141576
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9178173360442169858}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b59e3ec7a01fe544b9809b9a36cf5963, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &9001159650874468709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,6 +317,7 @@ MonoBehaviour:
   - {fileID: 9001159650874468709}
   - {fileID: 9178173360442169855}
   - {fileID: 9178173360442169848}
+  - {fileID: 3178929567965446159}
   sceneViewId: 1
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -363,7 +344,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 9178173360442169858}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd8d447a06c8d754a99aa887b0376cf4, type: 3}
+  m_Script: {fileID: 11500000, guid: 5ef69cae82bbc4a4e8b98435efdb00ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   blockedLocations:
@@ -384,8 +365,8 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   sightRange: 10
-  attackRange: 5
-  loseSightDistance: 15
+  attackRange: 3
+  loseSightDistance: 20
   loiterTimeMin: 0.5
   loiterTimeMax: 1.5
 --- !u!114 &8712538198727671899
@@ -403,5 +384,5 @@ MonoBehaviour:
   firePoint: {fileID: 5984674223639189714}
   _projectilePrefab: {fileID: 746343845003832362, guid: 02999af62208e424492de85b6e15863b, type: 3}
   bulletForce: 20
-  _anim: {fileID: 2838572943212141576}
+  _anim: {fileID: 1730050201446928431}
   shotCooldown: 1
