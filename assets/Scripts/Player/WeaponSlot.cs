@@ -23,7 +23,7 @@ public class WeaponSlot : MonoBehaviourPunCallbacks, IPunObservable
     // Start is called before the first frame update
     void Start()
     {
-        WeaponSwapped += wname => { };
+        WeaponSwapped += wname => { /*_view.RPC("ProporgateWeaponSwap", RpcTarget.Others);*/ };
         _view = GetComponent<PhotonView>();
         if (_view.IsMine)
         {
