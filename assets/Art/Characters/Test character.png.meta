@@ -104,7 +104,112 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Test character_0
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 2
+        width: 29
+        height: 42
+      alignment: 9
+      pivot: {x: 0.4949586, y: 0.002227891}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79b77c0b72a1898c0800000000000000
+      internalID: -3992412311892034665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Test character_1
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 2
+        width: 25
+        height: 41
+      alignment: 9
+      pivot: {x: 0.5, y: 0.004350249}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f733eb3a4a0aa2670800000000000000
+      internalID: 8514794674479575935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Test character_2
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 2
+        width: 25
+        height: 40
+      alignment: 9
+      pivot: {x: 0.5, y: 0.006578952}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7217b5cedef66990800000000000000
+      internalID: -7392941505528786305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Test character_3
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 2
+        width: 25
+        height: 41
+      alignment: 9
+      pivot: {x: 0.49415192, y: 0.0007844262}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d3a78b0cb35bfc40800000000000000
+      internalID: 5547119433149293529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Test character_4
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 2
+        width: 25
+        height: 42
+      alignment: 9
+      pivot: {x: 0.5, y: 0.009189742}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7aaf81fb8fd9e8ad0800000000000000
+      internalID: -2698045435064812889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

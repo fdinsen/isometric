@@ -64,7 +64,8 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 1133952470193776065}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -224,7 +225,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -5215478499062543082, guid: 84c4424d3ec24ab469c2a7885929f2ad, type: 3}
+  m_Sprite: {fileID: -3992412311892034665, guid: 6e5a7c371a8629d4790eed2610d1a174, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -480,10 +481,10 @@ GameObject:
   - component: {fileID: 1632623331}
   - component: {fileID: 387547501}
   - component: {fileID: 807371032}
-  - component: {fileID: 807371033}
   - component: {fileID: 1811722386}
+  - component: {fileID: -3270021013571231978}
   m_Layer: 9
-  m_Name: Player FIx
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -661,22 +662,6 @@ MonoBehaviour:
   interactableLayers:
     serializedVersion: 2
     m_Bits: 8
---- !u!114 &807371033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8913725357864863314}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 0
 --- !u!114 &1811722386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -690,3 +675,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slot1: {fileID: 1133952470193776065}
+--- !u!114 &-3270021013571231978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8913725357864863314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6161664c6c0f6a649b6f00c2cae09a4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 8913725357197106198}
+  crosshair_object: {fileID: 3723419710286740243}

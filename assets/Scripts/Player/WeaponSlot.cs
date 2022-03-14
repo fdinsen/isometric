@@ -29,6 +29,7 @@ public class WeaponSlot : MonoBehaviourPunCallbacks, IPunObservable
         {
             // Local equip
             var equippedWeaponView = PhotonView.Find(_weaponViewId);
+            Debug.Log(equippedWeaponView);
             DoEquipObject(equippedWeaponView.gameObject);
             _weapon = equippedWeaponView.gameObject.GetComponent<IWeapon>();
         }
