@@ -24,13 +24,13 @@ public class WeaponSlot : MonoBehaviourPunCallbacks, IPunObservable
         if (_view.IsMine)
         {
             // owner equip
-            EquipWeapon(_weaponName);
+            PerformEquip(CreateWeaponAsOwner(_weaponName));
         }
         else
         {
             // Local equip
             var equippedWeaponView = PhotonView.Find(_weaponViewId);
-            DoEquipObject(equippedWeaponView.gameObject);
+            AttachObject(equippedWeaponView.gameObject);
             _weapon = equippedWeaponView.gameObject.GetComponent<IWeapon>();
         }
     }
@@ -62,29 +62,45 @@ public class WeaponSlot : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (_view.IsMine)
         {
-            var spawnedObject = PhotonNetwork.Instantiate("Weapons/" + weaponName, _slotObject.transform.position, _slotObject.transform.rotation);
-            _weaponViewId = spawnedObject.GetComponent<PhotonView>().ViewID;
-            spawnedObject.TryGetComponent<IWeapon>(out var weapon);
-            if(weapon == null)
-                Debug.LogError($"Attempted to equip non-weapon in {gameObject.name}! GameObject: {weaponName}");
-
-            DoEquipObject(spawnedObject);
-            _weapon = weapon;
-            if (spawnedObject != _equippedWeapon)
-            {
-                // TODO Implement dropping weapon
-                var prevEquipped = _equippedWeapon;
-                _equippedWeapon = spawnedObject;
-                if(prevEquipped != null) PhotonNetwork.Destroy(prevEquipped);
-                return;
-            }
+            PerformEquip(CreateWeaponAsOwner(weaponName));
         }
     }
 
-    private void DoEquipObject(GameObject objectToEquip)
+    [PunRPC]
+    public void ProporgateWeaponSwap(string weaponName)
     {
-        objectToEquip.transform.SetParent(_slotObject.transform);
-        objectToEquip.transform.localPosition = _slotObject.transform.localPosition;
+        
+    }
+
+    private GameObject CreateWeaponAsOwner(string weaponName)
+    {
+        var spawnedObject = PhotonNetwork.Instantiate("Weapons/" + weaponName, _slotObject.transform.position, _slotObject.transform.rotation);
+        _weaponViewId = spawnedObject.GetComponent<PhotonView>().ViewID;
+        return spawnedObject;
+    }
+
+    private void PerformEquip(GameObject weaponObject)
+    {
+        weaponObject.TryGetComponent<IWeapon>(out var weapon);
+        if (weapon == null)
+            Debug.LogError($"Attempted to equip non-weapon in {gameObject.name}! GameObject: {weaponObject.name}");
+
+        AttachObject(weaponObject);
+        _weapon = weapon;
+        if (weaponObject != _equippedWeapon)
+        {
+            // TODO Implement dropping weapon
+            var prevEquipped = _equippedWeapon;
+            _equippedWeapon = weaponObject;
+            if (prevEquipped != null) PhotonNetwork.Destroy(prevEquipped);
+            return;
+        }
+    }
+
+    private void AttachObject(GameObject objectToAttach)
+    {
+        objectToAttach.transform.SetParent(_slotObject.transform);
+        objectToAttach.transform.localPosition = _slotObject.transform.localPosition;
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
