@@ -55,6 +55,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pistol
       objectReference: {fileID: 0}
+    - target: {fileID: 2417664880095561385, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 2bfd5fe8dd50c754aad999b1c01af7fe, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
 --- !u!1 &2674424658180949505 stripped
@@ -65,6 +69,11 @@ GameObject:
 --- !u!1 &472453650361595031 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3632053635157783599, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
+  m_PrefabInstance: {fileID: 3812820031903711416}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5821487274999555637 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7215831254184453773, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
   m_PrefabInstance: {fileID: 3812820031903711416}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &448307694166094683 stripped
@@ -87,10 +96,29 @@ MonoBehaviour:
   maxAmmo: 12
   currentAmmo: 0
   reloadTime: 3
+  _gunAnimator: {fileID: 8535772097303456061}
   firePoint: {fileID: 448307694166094683}
   fireDir: {fileID: 472453650361595031}
   bulletPrefab: {fileID: 1628897354262997406, guid: 346a02666811f6e4ab14d01380058a79, type: 3}
   bulletForce: 20
   damage: 1
   secondsBetweenShots: 1
-  _gunAnimator: {fileID: 2417664880095561385, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
+--- !u!95 &8535772097303456061
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5821487274999555637}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2bfd5fe8dd50c754aad999b1c01af7fe, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

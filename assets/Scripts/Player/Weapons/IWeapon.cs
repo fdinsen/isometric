@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Photon.Pun;
 
 public abstract class IWeapon : MonoBehaviour
 {
@@ -11,13 +12,24 @@ public abstract class IWeapon : MonoBehaviour
     [SerializeField] protected float reloadTime = 3f;
     protected bool isReloading = false;
 
+    [Header("Animation")]
+    [SerializeField] protected Animator _gunAnimator;
+
     public delegate void AmmoEvent(int currentAmmo, int maxAmmo);
     public event AmmoEvent AmmoChanged;
 
+    protected PhotonView _view;
+
     public void Start()
     {
-        AmmoChanged += (a, b) => { Debug.Log("Im being called"); };
+        AmmoChanged += (a, b) => { /*Debug.Log("Im being called");*/ };
         currentAmmo = maxAmmo;
+        _view = GetComponentInParent<PhotonView>();
+        if(_gunAnimator == null) _gunAnimator = GetComponentInChildren<Animator>();
+        if (_view.IsMine)
+        {
+            AmmoChanged.Invoke(currentAmmo, maxAmmo);
+        }
     }
         
 
@@ -28,9 +40,13 @@ public abstract class IWeapon : MonoBehaviour
     public IEnumerator Reload()
     {
         isReloading = true;
-        Debug.Log("Reloading....");
+        //Debug.Log("Reloading....");
+        //_gunAnimator.Play("Reloading");
+        _gunAnimator.SetTrigger("Reload");
+        _gunAnimator.speed = (1 / reloadTime); // play animation at reload time speed
 
         yield return new WaitForSeconds(reloadTime);
+        _gunAnimator.speed = 1; // reset animation speed
 
         currentAmmo = maxAmmo;
         AmmoChanged.Invoke(currentAmmo, maxAmmo);
@@ -40,5 +56,4 @@ public abstract class IWeapon : MonoBehaviour
     {
         AmmoChanged.Invoke(currentAmmo, maxAmmo);
     }
-    
 }

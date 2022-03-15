@@ -23,23 +23,25 @@ public class WeaponSlot : MonoBehaviourPunCallbacks, IPunObservable
     // Start is called before the first frame update
     void Start()
     {
-        WeaponSwapped += wname => { /*_view.RPC("ProporgateWeaponSwap", RpcTarget.Others);*/ };
+        WeaponSwapped += wname => { };
         _view = GetComponent<PhotonView>();
         if (_view.IsMine)
         {
             // owner equip
             PerformEquip(CreateWeaponAsOwner(_weaponName));
             WeaponSwapped.Invoke(_weaponName);
+            WeaponSwapped += wname => { _view.RPC("ProporgateWeaponSwap", RpcTarget.Others, _weaponViewId); };
         }
         else
         {
             // Local equip
-            ProporgateWeaponSwap();
+            ProporgateWeaponSwap(_weaponViewId);
         }
     }
 
     void Update()
     {
+
     }
 
     //Shooting
@@ -71,9 +73,11 @@ public class WeaponSlot : MonoBehaviourPunCallbacks, IPunObservable
     }
 
     [PunRPC]
-    public void ProporgateWeaponSwap()
+    public void ProporgateWeaponSwap(int weaponViewId)
     {
-        var equippedWeaponView = PhotonView.Find(_weaponViewId);
+        _weaponViewId = weaponViewId;
+        var equippedWeaponView = PhotonView.Find(weaponViewId);
+        //Debug.Log($"Is Mine: {_view.IsMine}, weaponViewId: {weaponViewId}, equippedWeaponView Found: {equippedWeaponView.name}");
         PerformEquip(equippedWeaponView.gameObject);
     }
 
@@ -109,14 +113,14 @@ public class WeaponSlot : MonoBehaviourPunCallbacks, IPunObservable
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        if(stream.IsWriting)
+        if (stream.IsWriting)
         {
             stream.SendNext(_weaponName);
             stream.SendNext(_weaponViewId); // isn't synced properly
         }
         else
         {
-            this._weaponName = (string) stream.ReceiveNext();
+            this._weaponName = (string)stream.ReceiveNext();
             this._weaponViewId = (int)stream.ReceiveNext();
         }
     }

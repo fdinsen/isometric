@@ -21,23 +21,22 @@ public class Pistol : IWeapon
     [SerializeField] float secondsBetweenShots = 1f;
 
     [Header("Animation")]
-    [SerializeField] Animator _gunAnimator;
+
 
     private float cooldown = 0f;
     private TraumaManager _traumaManager;
-    private PhotonView _view;
+    
 
     // Start is called before the first frame update
-    void Start()
+    new void Start()
     {
         base.Start();
-        if (gameObject.CompareTag("OtherPlayer"))
+        if (!_view.IsMine)
         {
             return;
         }
         GameObject.FindGameObjectWithTag("TraumaManager")?.TryGetComponent(out _traumaManager);
-        _view = GetComponentInParent<PhotonView>();
-        _gunAnimator = GetComponentInChildren<Animator>();
+
     }
     public override void Shoot()
     {
@@ -56,7 +55,7 @@ public class Pistol : IWeapon
 
     public override void Shoot(Vector3 dir, Action onShoot)
     {
-        Debug.Log(currentAmmo);
+        //Debug.Log(currentAmmo);
         if (isReloading) return;
 
         if (currentAmmo <= 0)
@@ -71,7 +70,7 @@ public class Pistol : IWeapon
             InvokeEvent(currentAmmo, maxAmmo);
             onShoot();
             _traumaManager?.AddTrauma(0.4f);
-            _gunAnimator?.SetTrigger("Attack");
+            //_gunAnimator?.SetTrigger("Attack");
 
             CreateBullets(bulletPrefab.name, firePoint.transform.position, fireDir.transform.rotation, dir, bulletForce);
             _view.RPC("CreateBullets", RpcTarget.Others, bulletPrefab.name, firePoint.transform.position, fireDir.transform.rotation, dir, bulletForce);

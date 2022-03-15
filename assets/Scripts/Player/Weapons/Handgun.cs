@@ -33,27 +33,21 @@ public class Handgun : IWeapon
     [Header("Gun Behaviour")]
     [SerializeField] float secondsBetweenShots = 1f;
 
-    [Header("Animation")]
-    [SerializeField] Animator _gunAnimator;
-
     private float cooldown = 0f;
     private TraumaManager _traumaManager;
-    private PhotonView _view;
 
     //public delegate void ShootEvent(Vector3 loc, Vector3 target);
     //public event ShootEvent OnShoot;
 
     // Start is called before the first frame update
-    void Start()
+    new void Start()
     {
         base.Start();
-        if (gameObject.CompareTag("OtherPlayer"))
+        if (!_view.IsMine)
         {
             return;
         }
         GameObject.FindGameObjectWithTag("TraumaManager")?.TryGetComponent(out _traumaManager);
-        _view = GetComponentInParent<PhotonView>();
-        _gunAnimator = GetComponentInChildren<Animator>();
     }
     public override void Shoot()
     {
@@ -72,7 +66,7 @@ public class Handgun : IWeapon
 
     public override void Shoot(Vector3 target, Action onShoot)
     {
-        Debug.Log(currentAmmo);
+        //Debug.Log(currentAmmo);
         if (isReloading) return;
 
         if (currentAmmo <= 0)
@@ -89,9 +83,8 @@ public class Handgun : IWeapon
             CreateWeaponTracer(firePoint.position, target);
             CreateShootFlash(firePoint.position);
             _traumaManager?.AddTrauma(0.2f);
-            _gunAnimator?.SetTrigger("Attack");
+            //_gunAnimator?.SetTrigger("Attack");
 
-            //CreateBullets(bulletPrefab.name, firePoint.position, firePoint.rotation, dir, bulletForce);
             _view.RPC("CreateWeaponTracer", RpcTarget.Others, firePoint.position, target);
             _view.RPC("CreateShootFlash", RpcTarget.Others, firePoint.position);
 

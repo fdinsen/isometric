@@ -63,6 +63,18 @@ PrefabInstance:
       propertyPath: ObservedComponents.Array.data[1]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8767528566304717495, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8767528566304717495, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8767528566304717495, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
@@ -76,9 +88,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 38707133754982079, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
   m_PrefabInstance: {fileID: 609327281937514635}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &3024596548058056226 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 2417664880095561385, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
+--- !u!1 &7806721279532492294 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7215831254184453773, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
   m_PrefabInstance: {fileID: 609327281937514635}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &2780953851300709937 stripped
@@ -101,6 +113,7 @@ MonoBehaviour:
   maxAmmo: 21
   currentAmmo: 0
   reloadTime: 3
+  _gunAnimator: {fileID: 6849061488133844915}
   firePoint: {fileID: 2780953851300709937}
   fireDir: {fileID: 647744298248977972}
   weaponTracerMaterial: {fileID: 2100000, guid: 1eb0751e224cee84997e70147d24240d, type: 2}
@@ -109,4 +122,22 @@ MonoBehaviour:
   damage: 1
   shootFlashSprite: {fileID: 21300000, guid: a6bca1a5203c3974cb33ccd075bb9a3b, type: 3}
   secondsBetweenShots: 0.2
-  _gunAnimator: {fileID: 3024596548058056226}
+--- !u!95 &6849061488133844915
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7806721279532492294}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2bfd5fe8dd50c754aad999b1c01af7fe, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
