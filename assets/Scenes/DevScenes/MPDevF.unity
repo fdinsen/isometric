@@ -16103,6 +16103,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 9178173360442169858, guid: cb1ccd2ba8a55d8448e5292709e8931e, type: 3}
+  _spawnLocations:
+  - {x: 29.35, y: -6.85, z: 0}
+  - {x: 19.73, y: -12.86, z: 0}
+  - {x: 7.15, y: -12.86, z: 0}
+  - {x: 4.63, y: -20.13, z: 0}
+  - {x: -4.59, y: -19.52, z: 0}
+  - {x: -6.17, y: -13.39, z: 0}
+  - {x: -18.92, y: -11.08, z: 0}
+  - {x: -21.68, y: -5.19, z: 0}
+  - {x: -7.07, y: -3.44, z: 0}
+  - {x: 4.99, y: -0.19, z: 0}
+  - {x: 4.99, y: -0.19, z: 0}
+  - {x: 13.96, y: -0.39, z: 0}
+  - {x: 19.97, y: -5.38, z: 0}
 --- !u!1 &645752775
 GameObject:
   m_ObjectHideFlags: 0
