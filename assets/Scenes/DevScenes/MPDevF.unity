@@ -16102,6 +16102,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 984cf021ae77101418ef4c22671780f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ActivateEnemySpawning: 1
+  secondsBetweenSpawns: 10
+  numberOfEnemiesToSpawn: 1
   enemyPrefab: {fileID: 9178173360442169858, guid: cb1ccd2ba8a55d8448e5292709e8931e, type: 3}
   _spawnLocations:
   - {x: 29.35, y: -6.85, z: 0}
