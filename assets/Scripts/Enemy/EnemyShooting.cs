@@ -11,6 +11,7 @@ public class EnemyShooting : MonoBehaviour
     [SerializeField] float bulletForce = 20f;
     [SerializeField] Animator _anim;
     [SerializeField] float shotCooldown = 1f;
+    [SerializeField] int damage = 10;
 
     private float cooldown = 0f;
     private PhotonView _view;
@@ -44,10 +45,9 @@ public class EnemyShooting : MonoBehaviour
     public void CreateEnemyBullets(string prefabname, Vector3 pos, Quaternion rot, Vector2 firedir, float force)
     {
         GameObject bullet =
-            (GameObject)Instantiate(Resources.Load(prefabname), pos, rot);
-        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-        Projectile proj = bullet.GetComponent<Projectile>();
-        rb.AddForce(firedir * force, ForceMode2D.Impulse);
+            (GameObject)Instantiate(Resources.Load("Projectiles/" + prefabname), pos, rot);
+        IProjectile proj = bullet.GetComponent<IProjectile>();
+        proj.Init(damage, firedir, force);
     }
 
     public IEnumerator RunFunctionOnAnimationEnd(Action onAnimationEnd)

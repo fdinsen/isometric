@@ -21,6 +21,7 @@ public class PlayerShooting : MonoBehaviour
 
         _player.PlayerInput.Combat.Enable();
         _player.PlayerInput.Combat.Shooting.performed += ctx => Shoot();
+        _player.PlayerInput.Combat.Reload.performed += ctx => Reload();
         
         TryGetComponent<PlayerHealth>(out var pHealth);
         if(pHealth != null)
@@ -32,6 +33,11 @@ public class PlayerShooting : MonoBehaviour
     void Shoot()
     {
         _slot.ShootWeapon(() => _player.PlayAttackAnimation());
+    }
+
+    void Reload()
+    {
+        _slot.ReloadWeapon();
     }
 }
 

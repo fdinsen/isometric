@@ -37,7 +37,12 @@ public abstract class IWeapon : MonoBehaviour
     public abstract void Shoot(Vector3 dir, Action onShoot);
     public abstract void Shoot(Vector3 dir);
     public abstract void Shoot();
-    public IEnumerator Reload()
+
+    public void Reload()
+    {
+        StartCoroutine(PerformReload());
+    }
+    protected IEnumerator PerformReload()
     {
         isReloading = true;
         //Debug.Log("Reloading....");

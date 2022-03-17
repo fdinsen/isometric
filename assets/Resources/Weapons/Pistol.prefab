@@ -101,7 +101,7 @@ MonoBehaviour:
   fireDir: {fileID: 472453650361595031}
   bulletPrefab: {fileID: 1628897354262997406, guid: 346a02666811f6e4ab14d01380058a79, type: 3}
   bulletForce: 20
-  damage: 1
+  damage: 2
   secondsBetweenShots: 1
 --- !u!95 &8535772097303456061
 Animator:

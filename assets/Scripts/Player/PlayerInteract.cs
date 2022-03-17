@@ -22,8 +22,8 @@ public class PlayerInteract : MonoBehaviour
             _player.PlayerInput.Movement.Enable();
 
             _player.PlayerInput.Movement.Interact.performed += ctx => Interact();
-            DialogueManager.Instance.DialogueStarted += () => { _player.PlayerInput.Movement.Disable(); };
-            DialogueManager.Instance.DialogueEnded += () => { _player.PlayerInput.Movement.Enable(); };
+            DialogueManager.Instance.DialogueStarted += () => { _player.PlayerInput.Movement.Disable(); _player.PlayerInput.Combat.Disable(); };
+            DialogueManager.Instance.DialogueEnded += () => { _player.PlayerInput.Movement.Enable(); _player.PlayerInput.Combat.Enable(); };
         }
     }
 

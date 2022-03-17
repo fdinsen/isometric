@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 
 [RequireComponent(typeof(PlayerController))]
-public class PlayerHealth : MonoBehaviourPunCallbacks, IPunObservable
+public class PlayerHealth : MonoBehaviourPunCallbacks, IPunObservable, IHurtable
 {
     [SerializeField] int maxHealth = 100;
     public int Health { get; private set; }
@@ -40,6 +40,12 @@ public class PlayerHealth : MonoBehaviourPunCallbacks, IPunObservable
         {
             PlayerDied.Invoke(Health, maxHealth);
         }
+    }
+
+    public void DealDamage(int dmg, Vector2 hitdir)
+    {
+        Debug.LogWarning("You are using DealDamage method that includes hitdir on PlayerHealth, but PlayerHealth does not support hitdir. Method will still deal damage, but no force is applied.");
+        DealDamage(dmg);
     }
 
     public void Heal(int amnt)

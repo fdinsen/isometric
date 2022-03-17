@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1628897354262997406, guid: 346a02666811f6e4ab14d01380058a79, type: 3}
       propertyPath: m_Name
-      value: Enemy Projectile
+      value: EnemySimpleProjectile
       objectReference: {fileID: 0}
     - target: {fileID: 1628897354262997406, guid: 346a02666811f6e4ab14d01380058a79, type: 3}
       propertyPath: m_Layer
@@ -21,11 +21,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5299960494278268644, guid: 346a02666811f6e4ab14d01380058a79, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.5323874
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5299960494278268644, guid: 346a02666811f6e4ab14d01380058a79, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.253214
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5299960494278268644, guid: 346a02666811f6e4ab14d01380058a79, type: 3}
       propertyPath: m_LocalPosition.z

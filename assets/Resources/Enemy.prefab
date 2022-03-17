@@ -369,6 +369,8 @@ MonoBehaviour:
   loseSightDistance: 20
   loiterTimeMin: 0.5
   loiterTimeMax: 1.5
+  _stuckDetectionDistance: 0.01
+  _stuckDetectionFrameLimit: 30
 --- !u!114 &8712538198727671899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -386,3 +388,4 @@ MonoBehaviour:
   bulletForce: 20
   _anim: {fileID: 1730050201446928431}
   shotCooldown: 1
+  damage: 10

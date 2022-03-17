@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class EnemyHealth : MonoBehaviourPunCallbacks, IPunObservable
+public class EnemyHealth : MonoBehaviourPunCallbacks, IPunObservable, IHurtable
 {
     [Header("Health")]
     [SerializeField] private int _initialHealth = 5;
@@ -25,6 +25,16 @@ public class EnemyHealth : MonoBehaviourPunCallbacks, IPunObservable
         _health = _initialHealth;
         EnemyDied += h => StartCoroutine(Die(h));
         _rb = GetComponent<Rigidbody2D>();
+    }
+
+    public void DealDamage(int dmg)
+    {
+        _health -= dmg;
+
+        if (_health <= 0)
+        {
+            EnemyDied.Invoke(_health);
+        }
     }
 
     public void DealDamage(int dmg, Vector2 hitdir)

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3446934232689559442}
   - component: {fileID: 9151929984915277467}
   m_Layer: 11
-  m_Name: Projectile
+  m_Name: SimpleProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1628897354262997406}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.5323874, y: 1.253214, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -131,10 +131,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1628897354262997406}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55d473dae1c4fb64cadcd287091909f7, type: 3}
+  m_Script: {fileID: 11500000, guid: fc4632d7ce5e9f842933eb24e35b6485, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   layers:
     serializedVersion: 2
-    m_Bits: 1920
-  dmg: 2
+    m_Bits: 1408

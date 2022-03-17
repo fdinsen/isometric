@@ -60,7 +60,7 @@ public class Pistol : IWeapon
 
         if (currentAmmo <= 0)
         {
-            StartCoroutine(Reload());
+            StartCoroutine(PerformReload());
                 return;
         }
 
@@ -83,10 +83,8 @@ public class Pistol : IWeapon
     void CreateBullets(string prefabname, Vector3 pos, Quaternion rot, Vector3 firedir, float force)
     {
         GameObject bullet
-            = (GameObject)Instantiate(Resources.Load(prefabname), pos, rot);
-        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-        Projectile proj = bullet.GetComponent<Projectile>(); //use for setting dmg and stuff
-        proj.SetDamage(damage);
-        rb.AddForce(firedir * force, ForceMode2D.Impulse);
+            = (GameObject) Instantiate(Resources.Load("Projectiles/" + prefabname), pos, rot);
+        IProjectile proj = bullet.GetComponent<IProjectile>(); //use for setting dmg and stuff
+        proj.Init(damage, firedir, force);
     }
 }

@@ -62,6 +62,11 @@ public class WeaponSlot : MonoBehaviourPunCallbacks, IPunObservable
         WeaponScript.Shoot();
     }
 
+    public void ReloadWeapon()
+    {
+        WeaponScript.Reload();
+    }
+
     //Equipping
     public void EquipWeapon(string weaponName)
     {
