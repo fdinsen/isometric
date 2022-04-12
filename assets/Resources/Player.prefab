@@ -581,9 +581,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _camera: {fileID: 8913725357398311687}
   _rb: {fileID: 309506411}
+  _hitboxCollider: {fileID: 309506407}
   _spriteAnim: {fileID: 460609013}
   _phealth: {fileID: 1632623331}
   _speed: 5
+  _dodgeForce: 1.5
+  _dodgeTime: 0.5
 --- !u!114 &1632623331
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -365,7 +365,7 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   sightRange: 10
-  attackRange: 3
+  attackRange: 5
   loseSightDistance: 20
   loiterTimeMin: 0.5
   loiterTimeMax: 1.5
@@ -385,7 +385,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firePoint: {fileID: 5984674223639189714}
   _projectilePrefab: {fileID: 746343845003832362, guid: 02999af62208e424492de85b6e15863b, type: 3}
-  bulletForce: 20
+  bulletForce: 10
   _anim: {fileID: 1730050201446928431}
   shotCooldown: 1
   damage: 10

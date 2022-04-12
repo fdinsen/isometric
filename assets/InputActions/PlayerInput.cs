@@ -44,6 +44,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Dodge"",
+                    ""type"": ""Button"",
+                    ""id"": ""9ac4d2f5-1202-4b03-85e2-0bc25a9f2e98"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -165,6 +174,17 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""118c9c0a-a0cb-45d3-80a2-03e1c04c25c9"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dodge"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -289,6 +309,24 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Click"",
+                    ""type"": ""Button"",
+                    ""id"": ""bfc8eb28-a043-4f58-85af-45469b5a5778"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pointer"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""9c509762-489f-4778-ad66-f444bbc7619e"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -302,6 +340,28 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""action"": ""Exit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c1b66da7-5e23-448e-a9ce-593cd71b5f3b"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e1455cc6-79cb-47cc-a975-ab3137c3ebee"",
+                    ""path"": ""<Pointer>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pointer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -312,6 +372,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
         m_Movement_Movement = m_Movement.FindAction("Movement", throwIfNotFound: true);
         m_Movement_Interact = m_Movement.FindAction("Interact", throwIfNotFound: true);
+        m_Movement_Dodge = m_Movement.FindAction("Dodge", throwIfNotFound: true);
         // Interaction
         m_Interaction = asset.FindActionMap("Interaction", throwIfNotFound: true);
         m_Interaction_Confirm = m_Interaction.FindAction("Confirm", throwIfNotFound: true);
@@ -323,6 +384,8 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         // MenuControls
         m_MenuControls = asset.FindActionMap("MenuControls", throwIfNotFound: true);
         m_MenuControls_Exit = m_MenuControls.FindAction("Exit", throwIfNotFound: true);
+        m_MenuControls_Click = m_MenuControls.FindAction("Click", throwIfNotFound: true);
+        m_MenuControls_Pointer = m_MenuControls.FindAction("Pointer", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -384,12 +447,14 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private IMovementActions m_MovementActionsCallbackInterface;
     private readonly InputAction m_Movement_Movement;
     private readonly InputAction m_Movement_Interact;
+    private readonly InputAction m_Movement_Dodge;
     public struct MovementActions
     {
         private @PlayerInput m_Wrapper;
         public MovementActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Movement_Movement;
         public InputAction @Interact => m_Wrapper.m_Movement_Interact;
+        public InputAction @Dodge => m_Wrapper.m_Movement_Dodge;
         public InputActionMap Get() { return m_Wrapper.m_Movement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -405,6 +470,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Interact.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnInteract;
+                @Dodge.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnDodge;
+                @Dodge.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnDodge;
+                @Dodge.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnDodge;
             }
             m_Wrapper.m_MovementActionsCallbackInterface = instance;
             if (instance != null)
@@ -415,6 +483,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @Dodge.started += instance.OnDodge;
+                @Dodge.performed += instance.OnDodge;
+                @Dodge.canceled += instance.OnDodge;
             }
         }
     }
@@ -506,11 +577,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_MenuControls;
     private IMenuControlsActions m_MenuControlsActionsCallbackInterface;
     private readonly InputAction m_MenuControls_Exit;
+    private readonly InputAction m_MenuControls_Click;
+    private readonly InputAction m_MenuControls_Pointer;
     public struct MenuControlsActions
     {
         private @PlayerInput m_Wrapper;
         public MenuControlsActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Exit => m_Wrapper.m_MenuControls_Exit;
+        public InputAction @Click => m_Wrapper.m_MenuControls_Click;
+        public InputAction @Pointer => m_Wrapper.m_MenuControls_Pointer;
         public InputActionMap Get() { return m_Wrapper.m_MenuControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -523,6 +598,12 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Exit.started -= m_Wrapper.m_MenuControlsActionsCallbackInterface.OnExit;
                 @Exit.performed -= m_Wrapper.m_MenuControlsActionsCallbackInterface.OnExit;
                 @Exit.canceled -= m_Wrapper.m_MenuControlsActionsCallbackInterface.OnExit;
+                @Click.started -= m_Wrapper.m_MenuControlsActionsCallbackInterface.OnClick;
+                @Click.performed -= m_Wrapper.m_MenuControlsActionsCallbackInterface.OnClick;
+                @Click.canceled -= m_Wrapper.m_MenuControlsActionsCallbackInterface.OnClick;
+                @Pointer.started -= m_Wrapper.m_MenuControlsActionsCallbackInterface.OnPointer;
+                @Pointer.performed -= m_Wrapper.m_MenuControlsActionsCallbackInterface.OnPointer;
+                @Pointer.canceled -= m_Wrapper.m_MenuControlsActionsCallbackInterface.OnPointer;
             }
             m_Wrapper.m_MenuControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -530,6 +611,12 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Exit.started += instance.OnExit;
                 @Exit.performed += instance.OnExit;
                 @Exit.canceled += instance.OnExit;
+                @Click.started += instance.OnClick;
+                @Click.performed += instance.OnClick;
+                @Click.canceled += instance.OnClick;
+                @Pointer.started += instance.OnPointer;
+                @Pointer.performed += instance.OnPointer;
+                @Pointer.canceled += instance.OnPointer;
             }
         }
     }
@@ -538,6 +625,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnDodge(InputAction.CallbackContext context);
     }
     public interface IInteractionActions
     {
@@ -552,5 +640,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     public interface IMenuControlsActions
     {
         void OnExit(InputAction.CallbackContext context);
+        void OnClick(InputAction.CallbackContext context);
+        void OnPointer(InputAction.CallbackContext context);
     }
 }

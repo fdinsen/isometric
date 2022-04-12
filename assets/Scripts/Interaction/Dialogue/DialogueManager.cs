@@ -16,6 +16,8 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject[] choices;
     private TextMeshProUGUI[] choicesText;
 
+    [Header("Error JSONs")]
+    [SerializeField] private TextAsset errorJSON;
 
     private Story currentStory;
     private PlayerInput input;
@@ -122,11 +124,24 @@ public class DialogueManager : MonoBehaviour
                     Debug.Log("layout=" + tagValue);
                     break;
                 case DiaTags.HEAL_TAG:
+                    // Placeholder code:
+                    int price = 20;
                     int percentHeal = int.Parse(tagValue) / 100;
                     var p = GameObject.FindGameObjectWithTag("Player");
                     if(p) { 
-                        var phealth = p.GetComponent<PlayerHealth>();
-                        if (phealth) { phealth.Heal(percentHeal * phealth.MaxHealth); }
+                        var psupplies = p.GetComponent<PlayerSupplies>();
+                        if (!psupplies) { Debug.LogWarning("PlayerSupplies not found on player!"); break; }
+                        if (psupplies.CanPlayerAfford(price))
+                        {
+                            var phealth = p.GetComponent<PlayerHealth>();
+                            if (!phealth) { Debug.LogWarning("PlayerHealth not found on player!"); break; }
+                            phealth.Heal(percentHeal * phealth.MaxHealth);
+                            psupplies.SpendCurrency(price);
+                        }
+                        else
+                        {
+                            EnterDialogueMode(errorJSON);
+                        }
                     }
                     break;
                 case DiaTags.AMMO_TAG:

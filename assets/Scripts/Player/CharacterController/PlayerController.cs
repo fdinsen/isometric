@@ -7,21 +7,34 @@ using Photon.Pun;
 //[RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
+    #region Class Variables
     private PhotonView _view;
     [Header("Component Setup")]
     [SerializeField] private GameObject _camera;
     [SerializeField] private Rigidbody2D _rb;
+    [SerializeField] private Collider2D _hitboxCollider;
     [SerializeField] private Animator _spriteAnim;
     [SerializeField] private PlayerHealth _phealth;
 
-    [Header("Parameters")]
-    [SerializeField] private float _speed = 5;
-
-    private GameObject[] _crosshair;
-
+    [Header("Movement")]
+    [SerializeField] [Tooltip("The movement speed of the Player.")] private float _speed = 5;
     private bool _facingRight = true;
 
+    [Header("Dodging")]
+    [SerializeField] [Tooltip("The force of the dodge. Multiples of movement speed")] 
+    private float _dodgeForce = 1.5f;
+    [SerializeField] [Tooltip("The time in seconds which the dodge will take. Affects the distance dodged.")] 
+    private float _dodgeTime = .5f;
+    private bool _dodging = false;
+
+    private GameObject[] _crosshair;
+    #endregion
+
+    #region Public Attributes
     public PlayerInput PlayerInput { get; private set; }
+    #endregion
+
+    #region Unity Setup
     void Awake()
     {
         //All players execute following
@@ -41,6 +54,7 @@ public class PlayerController : MonoBehaviour
         //Only owner executes following
         PlayerInput = new PlayerInput();
         PlayerInput.Movement.Enable();
+        PlayerInput.Movement.Dodge.performed += ctx => Dodge();
 
         if(_phealth != null)
         {
@@ -51,19 +65,14 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_view.IsMine)
+        if (_view.IsMine && !_dodging)
         {
             Move(PlayerInput.Movement.Movement.ReadValue<Vector2>());
         }
     }
+    #endregion
 
-    void Flip(GameObject sprite)
-    {
-        _facingRight = !_facingRight;
-
-        sprite.transform.Rotate(0f,180f,0);
-    }
-
+    #region Movement
     void Move(Vector2 input)
     {
         if(_spriteAnim != null)
@@ -87,20 +96,34 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    float GetVector2Size(Vector2 v)
+    void Flip(GameObject sprite)
     {
-        return Mathf.Abs(v.x) + Mathf.Abs(v.y);
+        _facingRight = !_facingRight;
+
+        sprite.transform.Rotate(0f, 180f, 0);
+    }
+    #endregion
+
+    #region Dodge
+    void Dodge()
+    {
+        var dir = PlayerInput.Movement.Movement.ReadValue<Vector2>().normalized;
+        if(!_dodging) StartCoroutine(PerformDodge(dir * _dodgeForce * _speed));
     }
 
-    private void ToggleMovement(bool doEnable)
+    private IEnumerator PerformDodge(Vector2 dodgeBy)
     {
-        if (doEnable) 
-        { 
-            PlayerInput.Movement.Enable(); return; 
-        }
-        PlayerInput.Movement.Disable();
+        _dodging = true;
+        if(_hitboxCollider != null) _hitboxCollider.enabled = false;
+        _rb.velocity += dodgeBy;
+        yield return new WaitForSeconds(_dodgeTime);
+        _dodging = false;
+        if (_hitboxCollider != null) _hitboxCollider.enabled = true;
+        _rb.velocity = Vector2.zero;
     }
+    #endregion
 
+    #region Animations
     public void PlayAttackAnimation()
     {
         _spriteAnim.SetTrigger("Attack");
@@ -115,11 +138,35 @@ public class PlayerController : MonoBehaviour
     {
         _spriteAnim.SetBool("Dead", true);
     }
+    #endregion
 
+    #region Helper Functions
+    private void ToggleMovement(bool doEnable)
+    {
+        if (doEnable)
+        {
+            PlayerInput.Movement.Enable(); return;
+        }
+        PlayerInput.Movement.Disable();
+    }
+
+    float GetVector2Size(Vector2 v)
+    {
+        return Mathf.Abs(v.x) + Mathf.Abs(v.y);
+    }
+    public void ReactivateCamera()
+    {
+        _camera.SetActive(true);
+        //return _camera;
+    }
+    #endregion
+
+    #region Testing
     void ExitGame()
     {
         Debug.Log("Closing game..");
         PhotonNetwork.Disconnect();
         Application.Quit();
     }
+    #endregion
 }
