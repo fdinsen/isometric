@@ -71,7 +71,7 @@ public class Handgun : IWeapon
 
         if (currentAmmo <= 0)
         {
-            StartCoroutine(PerformReload());
+            Reload();
             return;
         }
 

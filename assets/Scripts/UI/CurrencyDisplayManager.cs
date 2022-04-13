@@ -11,7 +11,7 @@ public class CurrencyDisplayManager : MonoBehaviour
     void Start()
     {
         if (_text == null) _text = GetComponentInChildren<TextMeshProUGUI>();
-        _player = GetMyPlayerSupplies();
+        _player = PlayerSupplies.GetMyPlayerSupplies();
         _player.CurrencyChanged += SetCurrency;
         SetCurrency(_player.Currency); // initializes
     }
@@ -19,18 +19,5 @@ public class CurrencyDisplayManager : MonoBehaviour
     void SetCurrency(int currency)
     {
         _text.text = currency.ToString();
-    }
-
-    private PlayerSupplies GetMyPlayerSupplies()
-    {
-        var players = GameObject.FindGameObjectsWithTag("Player");
-        foreach (var player in players)
-        {
-            player.TryGetComponent(out PlayerSupplies myPlayer);
-            if (myPlayer == null) { break; }
-            return myPlayer;
-        }
-        Debug.LogError("Error: Currency Display could not find active player!");
-        return null;
     }
 }

@@ -60,8 +60,8 @@ public class Pistol : IWeapon
 
         if (currentAmmo <= 0)
         {
-            StartCoroutine(PerformReload());
-                return;
+            Reload();
+            return;
         }
 
         if (Time.time > cooldown)

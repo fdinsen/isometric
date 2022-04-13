@@ -125,18 +125,18 @@ public class DialogueManager : MonoBehaviour
                     break;
                 case DiaTags.HEAL_TAG:
                     // Placeholder code:
-                    int price = 20;
+                    int healthprice = 20;
                     int percentHeal = int.Parse(tagValue) / 100;
                     var p = GameObject.FindGameObjectWithTag("Player");
                     if(p) { 
                         var psupplies = p.GetComponent<PlayerSupplies>();
                         if (!psupplies) { Debug.LogWarning("PlayerSupplies not found on player!"); break; }
-                        if (psupplies.CanPlayerAfford(price))
+                        if (psupplies.CanPlayerAfford(healthprice))
                         {
                             var phealth = p.GetComponent<PlayerHealth>();
                             if (!phealth) { Debug.LogWarning("PlayerHealth not found on player!"); break; }
                             phealth.Heal(percentHeal * phealth.MaxHealth);
-                            psupplies.SpendCurrency(price);
+                            psupplies.SpendCurrency(healthprice);
                         }
                         else
                         {
@@ -145,13 +145,31 @@ public class DialogueManager : MonoBehaviour
                     }
                     break;
                 case DiaTags.AMMO_TAG:
-                    Debug.Log("ammo=" + tagValue);
+                    // Placeholder code:
+                    int ammoprice = 20;
+                    var pl = GameObject.FindGameObjectWithTag("Player");
+                    if (pl)
+                    {
+                        var psupplies = pl.GetComponent<PlayerSupplies>();
+                        if (!psupplies) { Debug.LogWarning("PlayerSupplies not found on player!"); break; }
+                        if (psupplies.CanPlayerAfford(ammoprice))
+                        {
+                            psupplies.AddAmmo(100, AmmoType.SMALL);
+                            psupplies.AddAmmo(100, AmmoType.MEDIUM);
+                            psupplies.AddAmmo(100, AmmoType.HEAVY);
+                            psupplies.SpendCurrency(ammoprice);
+                        }
+                        else
+                        {
+                            EnterDialogueMode(errorJSON);
+                        }
+                    }
                     break;
                 case DiaTags.WEAPON_TAG:
-                    var pl = GameObject.FindGameObjectWithTag("Player");
-                    if(pl)
+                    var pla = GameObject.FindGameObjectWithTag("Player");
+                    if(pla)
                     {
-                        var swapper = pl.GetComponent<WeaponSwapHandler>();
+                        var swapper = pla.GetComponent<WeaponSwapHandler>();
                         if(swapper) { swapper.SwapWeaponSlot1(tagValue); }
                     }
                     break;

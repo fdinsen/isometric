@@ -7,10 +7,12 @@ using Photon.Pun;
 public abstract class IWeapon : MonoBehaviour
 {
     [Header("Ammo")]
+    [SerializeField] protected AmmoType ammoType;
     [SerializeField] protected int maxAmmo = 12;
     [SerializeField] protected int currentAmmo;
     [SerializeField] protected float reloadTime = 3f;
     protected bool isReloading = false;
+    protected PlayerSupplies playerSupply;
 
     [Header("Animation")]
     [SerializeField] protected Animator _gunAnimator;
@@ -25,6 +27,7 @@ public abstract class IWeapon : MonoBehaviour
         AmmoChanged += (a, b) => { /*Debug.Log("Im being called");*/ };
         currentAmmo = maxAmmo;
         _view = GetComponentInParent<PhotonView>();
+        playerSupply = GetComponentInParent<PlayerSupplies>();
         if(_gunAnimator == null) _gunAnimator = GetComponentInChildren<Animator>();
         if (_view.IsMine)
         {
@@ -40,9 +43,20 @@ public abstract class IWeapon : MonoBehaviour
 
     public void Reload()
     {
-        StartCoroutine(PerformReload());
+        if (!playerSupply.HasAmmo(ammoType)) return;
+        int ammosupply = playerSupply.GetAmmo(ammoType);
+        int amountToReload;
+        if( ammosupply - (maxAmmo-currentAmmo) >= 0)
+        {
+            amountToReload = maxAmmo - currentAmmo;
+        }
+        else
+        {
+            amountToReload = ammosupply;
+        }
+        StartCoroutine(PerformReload(amountToReload));
     }
-    protected IEnumerator PerformReload()
+    protected IEnumerator PerformReload(int amountToReload)
     {
         isReloading = true;
         //Debug.Log("Reloading....");
@@ -53,7 +67,8 @@ public abstract class IWeapon : MonoBehaviour
         yield return new WaitForSeconds(reloadTime);
         _gunAnimator.speed = 1; // reset animation speed
 
-        currentAmmo = maxAmmo;
+        currentAmmo += amountToReload;
+        playerSupply.UseAmmo(amountToReload, ammoType);
         AmmoChanged.Invoke(currentAmmo, maxAmmo);
         isReloading = false;
     }

@@ -110,6 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfee36f194cf5fb42a207fe3ccb6ff7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ammoType: 0
   maxAmmo: 21
   currentAmmo: 0
   reloadTime: 3
