@@ -6,16 +6,10 @@ using Photon.Pun;
 
 public class Pistol : IWeapon
 {
-    [Header("Firing Direction Setup")]
-    [SerializeField] GameObject firePoint;
-    [SerializeField] GameObject fireDir;
-
     [Header("Bullet")]
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] float bulletForce = 20f;
     [SerializeField] int damage = 2;
-
-    
 
     [Header("Gun Behaviour")]
     [SerializeField] float secondsBetweenShots = 1f;
@@ -67,7 +61,7 @@ public class Pistol : IWeapon
         if (Time.time > cooldown)
         {
             currentAmmo--;
-            InvokeEvent(currentAmmo, maxAmmo);
+            InvokeAmmoChanged(currentAmmo, maxAmmo);
             onShoot();
             _traumaManager?.AddTrauma(0.4f);
             //_gunAnimator?.SetTrigger("Attack");
@@ -82,6 +76,7 @@ public class Pistol : IWeapon
     [PunRPC]
     void CreateBullets(string prefabname, Vector3 pos, Quaternion rot, Vector3 firedir, float force)
     {
+        InvokeOnPlayerShoot();
         GameObject bullet
             = (GameObject) Instantiate(Resources.Load("Projectiles/" + prefabname), pos, rot);
         IProjectile proj = bullet.GetComponent<IProjectile>(); //use for setting dmg and stuff

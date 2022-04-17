@@ -75,6 +75,14 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9018657824289403202, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018657824289403202, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.39
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
@@ -117,9 +125,12 @@ MonoBehaviour:
   _gunAnimator: {fileID: 6849061488133844915}
   firePoint: {fileID: 2780953851300709937}
   fireDir: {fileID: 647744298248977972}
-  weaponTracerMaterial: {fileID: 2100000, guid: 1eb0751e224cee84997e70147d24240d, type: 2}
+  weaponTracerMaterial: {fileID: 2100000, guid: 37e4981e7fcbb584d85119ba7f5a6b9d, type: 2}
   tracerWidth: 0.25
   tracerWorldSize: 8
+  _ignoreLayers:
+    serializedVersion: 2
+    m_Bits: 512
   damage: 1
   shootFlashSprite: {fileID: 21300000, guid: a6bca1a5203c3974cb33ccd075bb9a3b, type: 3}
   secondsBetweenShots: 0.2

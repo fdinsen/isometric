@@ -75,7 +75,7 @@ public class EnemyAI : MonoBehaviourPunCallbacks, IPunObservable
         _startingPos = transform.position;
         _roamPos = GetRoamingPosition();
         targetFilter.useLayerMask = true;
-        if (_health) _health.EnemyDied += _ => _state = State.Dead;
+        if (_health) _health.ThisEnemyDied += _ => _state = State.Dead;
 
         _agent.SetDestination(_roamPos);
         transform.rotation = Quaternion.Euler(0, 0, transform.rotation.z);

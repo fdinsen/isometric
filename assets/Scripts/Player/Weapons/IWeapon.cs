@@ -17,8 +17,15 @@ public abstract class IWeapon : MonoBehaviour
     [Header("Animation")]
     [SerializeField] protected Animator _gunAnimator;
 
+    [Header("Firing Direction Setup")]
+    [SerializeField] protected Transform firePoint;
+    [SerializeField] protected Transform fireDir;
+
     public delegate void AmmoEvent(int currentAmmo, int maxAmmo);
     public event AmmoEvent AmmoChanged;
+
+    public delegate void ShootEvent(OnPlayerShootEventArgs e);
+    public static event ShootEvent OnPlayerShoot;
 
     protected PhotonView _view;
 
@@ -72,8 +79,27 @@ public abstract class IWeapon : MonoBehaviour
         AmmoChanged.Invoke(currentAmmo, maxAmmo);
         isReloading = false;
     }
-    protected void InvokeEvent(int currentAmmo, int maxAmmo)
+    protected void InvokeAmmoChanged(int currentAmmo, int maxAmmo)
     {
         AmmoChanged.Invoke(currentAmmo, maxAmmo);
+    }
+
+    protected void InvokeOnPlayerShoot()
+    {
+        OnPlayerShoot.Invoke(new OnPlayerShootEventArgs(transform.position, firePoint.position, fireDir.rotation.eulerAngles));
+    }
+
+    public class OnPlayerShootEventArgs
+    {
+        public Vector3 gunPosition;
+        public Vector3 gunEndpointPosition;
+        public Vector3 aimDirection;
+
+        public OnPlayerShootEventArgs(Vector3 gunPosition, Vector3 gunEndpointPosition, Vector3 aimDirection)
+        {
+            this.gunPosition = gunPosition;
+            this.gunEndpointPosition = gunEndpointPosition;
+            this.aimDirection = aimDirection;
+        }
     }
 }

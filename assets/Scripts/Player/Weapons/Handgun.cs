@@ -8,9 +8,6 @@ using CodeMonkey;
 
 public class Handgun : IWeapon
 {
-    [Header("Firing Direction Setup")]
-    [SerializeField] Transform firePoint;
-    [SerializeField] Transform fireDir;
 
     //[Header("Bullet")]
     //[SerializeField] GameObject bulletPrefab;
@@ -21,6 +18,7 @@ public class Handgun : IWeapon
     [SerializeField] private Material weaponTracerMaterial;
     [SerializeField] private float tracerWidth = .25f;
     [SerializeField] private float tracerWorldSize = 8f;
+    [SerializeField] private LayerMask _ignoreLayers;
     //[SerializeField] private float tracerLifetime = .1f;
 
     [Header("Bullet Settings")]
@@ -78,7 +76,7 @@ public class Handgun : IWeapon
         if (Time.time > cooldown)
         {
             currentAmmo--;
-            InvokeEvent(currentAmmo, maxAmmo);
+            InvokeAmmoChanged(currentAmmo, maxAmmo);
             onShoot();
             CreateWeaponTracer(firePoint.position, target);
             CreateShootFlash(firePoint.position);
@@ -97,9 +95,10 @@ public class Handgun : IWeapon
     [PunRPC]
     void CreateWeaponTracer(Vector3 fromPosition, Vector3 targetPosition)
     {
+        InvokeOnPlayerShoot();
         Vector3 dir = (targetPosition - fromPosition).normalized;
         //Raycast
-        RaycastHit2D hit = Physics2D.Raycast(fromPosition, dir);
+        RaycastHit2D hit = Physics2D.Raycast(fromPosition, dir,50, ~(_ignoreLayers));
         if(hit)
         {
             targetPosition = hit.collider.transform.position;
@@ -111,6 +110,7 @@ public class Handgun : IWeapon
                     enemyHit.DealDamage(damage, dir);
                 }
             }
+            Debug.Log(hit.collider.gameObject.name);
         }
 
         //Visuals

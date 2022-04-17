@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SimpleProjectile : IProjectile
+public class SimpleProjectile : IProjectile 
 {
     //Inherits basic behaviour from IProjectile
 }
