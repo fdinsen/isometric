@@ -6,6 +6,21 @@ using UnityEngine;
 public abstract class IPickupable : MonoBehaviour
 {
     [SerializeField] private Collider2D _collider;
+    [SerializeField] private float _lifetimeInSeconds = 300;
+
+    private float _despawnAt;
+    private void Awake()
+    {
+        _despawnAt = Time.time + _lifetimeInSeconds;
+    }
+
+    private void FixedUpdate()
+    {
+        if(Time.time >= _despawnAt)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     public abstract bool DoPickup(GameObject pickupper);
 
@@ -16,7 +31,6 @@ public abstract class IPickupable : MonoBehaviour
             if (DoPickup(col.gameObject))
             {
                 Destroy(gameObject);
-                //RPC PROPOERGATE PICKUP
             }
         }
     }
