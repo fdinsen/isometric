@@ -551,6 +551,9 @@ MonoBehaviour:
   - Type: 9
     SynchronizeType: 1
     Name: Hurt
+  - Type: 9
+    SynchronizeType: 1
+    Name: Dodge
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0

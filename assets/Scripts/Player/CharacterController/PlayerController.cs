@@ -125,6 +125,7 @@ public class PlayerController : MonoBehaviour
         _dodging = true;
         if(_hitboxCollider != null) _hitboxCollider.enabled = false;
         _rb.velocity += dodgeBy;
+        StartCoroutine(PlayDodgeAnimation(_dodgeTime));
         yield return new WaitForSeconds(_dodgeTime);
         _dodging = false;
         if (_hitboxCollider != null) _hitboxCollider.enabled = true;
@@ -146,6 +147,14 @@ public class PlayerController : MonoBehaviour
     public void PlayDeathAnimation()
     {
         _spriteAnim.SetBool("Dead", true);
+    }
+
+    public IEnumerator PlayDodgeAnimation(float speed)
+    {
+        _spriteAnim.SetTrigger("Dodge");
+        _spriteAnim.speed = 1 / speed;
+        yield return new WaitForSeconds(_dodgeTime);
+        _spriteAnim.speed = 1;
     }
     #endregion
 
