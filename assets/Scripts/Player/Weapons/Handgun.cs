@@ -31,8 +31,12 @@ public class Handgun : IWeapon
     [Header("Gun Behaviour")]
     [SerializeField] float secondsBetweenShots = 1f;
 
+    [Header("Camera Shake")]
+    [SerializeField] float shakeIntensity = 1f;
+    [SerializeField] float shakeTime = .3f;
+    [SerializeField] bool decreaseShakeOverTime = false;
+
     private float cooldown = 0f;
-    private TraumaManager _traumaManager;
 
     //public delegate void ShootEvent(Vector3 loc, Vector3 target);
     //public event ShootEvent OnShoot;
@@ -45,7 +49,7 @@ public class Handgun : IWeapon
         {
             return;
         }
-        GameObject.FindGameObjectWithTag("TraumaManager")?.TryGetComponent(out _traumaManager);
+        
     }
     public override void Shoot()
     {
@@ -80,7 +84,7 @@ public class Handgun : IWeapon
             onShoot();
             CreateWeaponTracer(firePoint.position, target);
             CreateShootFlash(firePoint.position);
-            _traumaManager?.AddTrauma(0.2f);
+            ShakeCamera(shakeIntensity, shakeTime, decreaseShakeOverTime);
             //_gunAnimator?.SetTrigger("Attack");
 
             _view.RPC("CreateWeaponTracer", RpcTarget.Others, firePoint.position, target);

@@ -28,6 +28,7 @@ public abstract class IWeapon : MonoBehaviour
     public static event ShootEvent OnPlayerShoot;
 
     protected PhotonView _view;
+    protected PlayerCameraHandler playerCamHandler;
 
     public void Start()
     {
@@ -35,6 +36,7 @@ public abstract class IWeapon : MonoBehaviour
         currentAmmo = maxAmmo;
         _view = GetComponentInParent<PhotonView>();
         playerSupply = GetComponentInParent<PlayerSupplies>();
+        playerCamHandler = GetComponentInParent<PlayerCameraHandler>();
         if(_gunAnimator == null) _gunAnimator = GetComponentInChildren<Animator>();
         if (_view.IsMine)
         {
@@ -87,6 +89,11 @@ public abstract class IWeapon : MonoBehaviour
     protected void InvokeOnPlayerShoot()
     {
         OnPlayerShoot.Invoke(new OnPlayerShootEventArgs(transform.position, firePoint.position, fireDir.rotation.eulerAngles));
+    }
+
+    protected void ShakeCamera(float intensity, float time, bool decreaseIntensityOverTime = true)
+    {
+        playerCamHandler.ShakeCamera(intensity, time, decreaseIntensityOverTime);
     }
 
     public class OnPlayerShootEventArgs

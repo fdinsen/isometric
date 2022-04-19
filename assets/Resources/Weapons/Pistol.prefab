@@ -116,6 +116,9 @@ MonoBehaviour:
   bulletForce: 20
   damage: 2
   secondsBetweenShots: 1
+  shakeIntensity: 1
+  shakeTime: 0.3
+  decreaseShakeOverTime: 0
 --- !u!95 &8535772097303456061
 Animator:
   serializedVersion: 3

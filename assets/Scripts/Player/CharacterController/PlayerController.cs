@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Photon.Pun;
+using Cinemachine;
 
 //[RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
@@ -10,7 +11,7 @@ public class PlayerController : MonoBehaviour
     #region Class Variables
     private PhotonView _view;
     [Header("Component Setup")]
-    [SerializeField] private GameObject _camera;
+    [SerializeField] private CinemachineVirtualCamera _camera;
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private Collider2D _hitboxCollider;
     [SerializeField] private Animator _spriteAnim;
@@ -44,10 +45,13 @@ public class PlayerController : MonoBehaviour
         if (_phealth == null) _phealth = GetComponent<PlayerHealth>();
 
         _crosshair = GameObject.FindGameObjectsWithTag("Crosshair");
+        _camera.gameObject.transform.parent = null;
+        CameraManager.Instance.AddVirtualCamera(_camera);
         if (!_view.IsMine)
         {
             gameObject.tag = "OtherPlayer";
-            _camera.gameObject.SetActive(false);
+            _camera.Priority = 1;
+            //_camera.gameObject.SetActive(false);
             return;
         }
 
@@ -69,6 +73,11 @@ public class PlayerController : MonoBehaviour
         {
             Move(PlayerInput.Movement.Movement.ReadValue<Vector2>());
         }
+    }
+
+    private void OnDestroy()
+    {
+        CameraManager.Instance.RemoveVirtualCamera(_camera);
     }
     #endregion
 
@@ -154,10 +163,15 @@ public class PlayerController : MonoBehaviour
     {
         return Mathf.Abs(v.x) + Mathf.Abs(v.y);
     }
-    public void ReactivateCamera()
+    //public void ReactivateCamera()
+    //{
+    //    _camera.SetActive(true);
+    //    //return _camera;
+    //}
+
+    public CinemachineVirtualCamera GetCamera()
     {
-        _camera.SetActive(true);
-        //return _camera;
+        return _camera;
     }
     #endregion
 

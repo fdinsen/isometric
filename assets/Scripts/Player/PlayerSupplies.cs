@@ -19,7 +19,7 @@ public class PlayerSupplies : MonoBehaviour
     public void Start()
     {
         CurrencyChanged?.Invoke(Currency);
-        AmmoChanged += (ammo, type) => Debug.Log(type + ": " + ammo);
+        //AmmoChanged += (ammo, type) => Debug.Log(type + ": " + ammo);
         AmmoChanged?.Invoke(_smallAmmo, AmmoType.SMALL);
         AmmoChanged?.Invoke(_mediumAmmo, AmmoType.MEDIUM);
         AmmoChanged?.Invoke(_heavyAmmo, AmmoType.HEAVY);

@@ -97,7 +97,7 @@ public class EnemyAI : MonoBehaviourPunCallbacks, IPunObservable
                     ChaseTarget();
                     break;
                 case State.ShootingTarget:
-                    _shooter.Shoot(GetPlayerDir(), () => _state = State.ChaseTarget);
+                    ShootAtTarget();
                     break;
                 case State.Loitering:
                     Loiter();
@@ -165,6 +165,16 @@ public class EnemyAI : MonoBehaviourPunCallbacks, IPunObservable
                 _state = State.Roaming;
             }
         }
+    }
+
+    private void ShootAtTarget()
+    {
+        if (_currentTarget == null)
+        {
+            _state = State.Roaming;
+            return;
+        }
+        _shooter.Shoot(GetPlayerDir(), () => _state = State.ChaseTarget);
     }
 
     public Vector3 GetRoamingPosition()

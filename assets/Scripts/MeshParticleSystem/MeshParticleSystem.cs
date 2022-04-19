@@ -73,7 +73,7 @@ public class MeshParticleSystem : MonoBehaviour
 
     public int AddQuad(Vector3 position, float rotation, Vector3 quadSize, bool skewed, int uvIndex)
     {
-        if (quadIndex >= MAX_QUAD_AMOUNT) return 0; // Mesh full
+        if (quadIndex >= MAX_QUAD_AMOUNT) return 0; // Mesh full, maybe reset quadIndex, to start overwriting old?
 
         UpdateQuad(quadIndex, position, rotation, quadSize, skewed, uvIndex);
 

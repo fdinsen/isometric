@@ -67,6 +67,7 @@ public class PlayerHealth : MonoBehaviourPunCallbacks, IPunObservable, IHurtable
         if (photonView.IsMine)
         {
             PhotonNetwork.Destroy(gameObject);
+            GameManager.Instance?.MarkPlayerAsDead();
         }
     }
 

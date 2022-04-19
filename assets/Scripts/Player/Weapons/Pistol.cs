@@ -14,11 +14,12 @@ public class Pistol : IWeapon
     [Header("Gun Behaviour")]
     [SerializeField] float secondsBetweenShots = 1f;
 
-    [Header("Animation")]
-
+    [Header("Camera Shake")]
+    [SerializeField] float shakeIntensity = 1f;
+    [SerializeField] float shakeTime = .3f;
+    [SerializeField] bool decreaseShakeOverTime = false;
 
     private float cooldown = 0f;
-    private TraumaManager _traumaManager;
     
 
     // Start is called before the first frame update
@@ -29,7 +30,6 @@ public class Pistol : IWeapon
         {
             return;
         }
-        GameObject.FindGameObjectWithTag("TraumaManager")?.TryGetComponent(out _traumaManager);
 
     }
     public override void Shoot()
@@ -63,7 +63,7 @@ public class Pistol : IWeapon
             currentAmmo--;
             InvokeAmmoChanged(currentAmmo, maxAmmo);
             onShoot();
-            _traumaManager?.AddTrauma(0.4f);
+            ShakeCamera(shakeIntensity, shakeTime, decreaseShakeOverTime);
             //_gunAnimator?.SetTrigger("Attack");
 
             CreateBullets(bulletPrefab.name, firePoint.transform.position, fireDir.transform.rotation, dir, bulletForce);

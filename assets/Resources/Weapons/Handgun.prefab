@@ -134,6 +134,9 @@ MonoBehaviour:
   damage: 1
   shootFlashSprite: {fileID: 21300000, guid: a6bca1a5203c3974cb33ccd075bb9a3b, type: 3}
   secondsBetweenShots: 0.2
+  shakeIntensity: 1
+  shakeTime: 0.3
+  decreaseShakeOverTime: 0
 --- !u!95 &6849061488133844915
 Animator:
   serializedVersion: 3

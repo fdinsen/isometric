@@ -20,7 +20,8 @@ public class SpawnEnemy : MonoBehaviour
     {
         if(PhotonNetwork.IsMasterClient)
         {
-            StartCoroutine(SpawnEnemiesLoop());
+            if(ActivateEnemySpawning) 
+                StartCoroutine(SpawnEnemiesLoop());
         }
     }
 
