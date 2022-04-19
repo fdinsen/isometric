@@ -165,6 +165,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5526428459676875180}
     m_Modifications:
+    - target: {fileID: 114447172493507408, guid: 4ed9353820e99294e845488f2413d491, type: 3}
+      propertyPath: m_RenderPostProcessing
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 114447172493507410, guid: 4ed9353820e99294e845488f2413d491, type: 3}
       propertyPath: m_Name
       value: MainCameraManager
@@ -179,11 +183,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114447172493507501, guid: 4ed9353820e99294e845488f2413d491, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1.93
       objectReference: {fileID: 0}
     - target: {fileID: 114447172493507501, guid: 4ed9353820e99294e845488f2413d491, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 12.97
       objectReference: {fileID: 0}
     - target: {fileID: 114447172493507501, guid: 4ed9353820e99294e845488f2413d491, type: 3}
       propertyPath: m_LocalPosition.z
