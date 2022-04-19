@@ -107,7 +107,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &3446934232689559442
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -140,6 +140,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1408
   _anim: {fileID: 662677473429333852}
+  dirtest: {x: 0, y: 1, z: 0}
 --- !u!95 &662677473429333852
 Animator:
   serializedVersion: 3

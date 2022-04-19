@@ -2,16 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CodeMonkey.Utils;
+using ExtensionMethods;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public abstract class IProjectile : MonoBehaviour
 {
     [SerializeField] private LayerMask layers = 3968; // By default activates layers 7,8,9,10&11
     [SerializeField] private Animator _anim;
+    [SerializeField] private float lifetime = 10f;
 
     int damage = 1; 
     private Rigidbody2D _rb;
-    private float lifetime = 10f;
     private float deathTime;
 
     void Awake()
@@ -26,9 +27,8 @@ public abstract class IProjectile : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, 0);
         damage = dmg;
         _rb.AddForce(dir * force, ForceMode2D.Impulse);
-        
-        var targetRotation = Quaternion.LookRotation(dir, transform.up);
-        targetRotation = Quaternion.Euler(0, 0, targetRotation.eulerAngles.z);
+
+        var targetRotation = HelperMethods.LookRotation2D(dir);
         transform.rotation = targetRotation;
     }
 

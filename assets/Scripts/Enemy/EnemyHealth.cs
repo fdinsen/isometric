@@ -55,7 +55,7 @@ public class EnemyHealth : MonoBehaviourPunCallbacks, IPunObservable, IHurtable
             ThisEnemyDied.Invoke(SetArgs(hitdir));
             recoilforce *= 1f + (Mathf.Abs(_health) / _initialHealth * .01f); //adds more force the more below 0 the health went
             _rb.drag *= 0.2f; 
-            Debug.Log("Recoil Force " + recoilforce);
+            //Debug.Log("Recoil Force " + recoilforce);
         }
         _rb.AddForce(hitdir * recoilforce);
     }
