@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Photon.Pun;
+using FMODUnity;
+using ExtensionMethods;
 
 public abstract class IWeapon : MonoBehaviour
 {
@@ -16,6 +18,10 @@ public abstract class IWeapon : MonoBehaviour
 
     [Header("Animation")]
     [SerializeField] protected Animator _gunAnimator;
+
+    [Header("Audio")]
+    [SerializeField]
+    private EventReference shootSoundEvent;
 
     [Header("Firing Direction Setup")]
     [SerializeField] protected Transform firePoint;
@@ -96,6 +102,11 @@ public abstract class IWeapon : MonoBehaviour
         playerCamHandler.ShakeCamera(intensity, time, decreaseIntensityOverTime);
     }
 
+    protected void PlayShootSound()
+    {
+        PlayOneshotAttachedRPC(shootSoundEvent.Guid, RpcTarget.All);
+    }
+
     public class OnPlayerShootEventArgs
     {
         public Vector3 gunPosition;
@@ -109,4 +120,53 @@ public abstract class IWeapon : MonoBehaviour
             this.aimDirection = aimDirection;
         }
     }
+    #region audio, move to interface after update to Unity 2021
+    private void PlayOneshotLocalAndRPC(FMOD.GUID guid, Vector3 position, RpcTarget target)
+    {
+        (int data1,int data2,int data3,int data4) = ConvertGuidToData(guid);
+        PlayOneShot(data1,data2,data3,data4, position);
+        _view.RPC("PlayOneShot", target, data1, data2, data3, data4, position);
+    }
+
+    private void PlayOneshotRPC(FMOD.GUID guid, Vector3 position, RpcTarget target)
+    {
+        (int data1, int data2, int data3, int data4) = ConvertGuidToData(guid);
+        _view.RPC("PlayOneShot", target,  data1, data2, data3, data4, position);
+    }
+
+    private void PlayOneshotAttachedLocalAndRPC(FMOD.GUID guid, RpcTarget target)
+    {
+        (int data1, int data2, int data3, int data4) = ConvertGuidToData(guid);
+        PlayOneshotAttached(data1, data2, data3, data4);
+        _view.RPC("PlayOneshotAttached", target, data1, data2, data3, data4);
+    }
+
+    private void PlayOneshotAttachedRPC(FMOD.GUID guid, RpcTarget target)
+    {
+        (int data1, int data2, int data3, int data4) = ConvertGuidToData(guid);
+        _view.RPC("PlayOneshotAttached", target, data1, data2, data3, data4);
+    }
+
+    [PunRPC]
+    protected void PlayOneshotAttached(int data1, int data2, int data3, int data4)
+    {
+        RuntimeManager.PlayOneShotAttached(ConvertDataToGuid(data1, data2, data3, data4), gameObject);
+    }
+
+    [PunRPC]
+    protected void PlayOneShot(int data1, int data2, int data3, int data4, Vector3 position)
+    {
+        RuntimeManager.PlayOneShot(ConvertDataToGuid(data1, data2, data3, data4), position);
+    }
+
+    private (int, int, int, int) ConvertGuidToData(FMOD.GUID guid)
+    {
+        return ( guid.Data1, guid.Data2, guid.Data3, guid.Data4 );
+    }
+
+    private FMOD.GUID ConvertDataToGuid(int data1, int data2, int data3, int data4)
+    {
+        return new FMOD.GUID { Data1 = data1, Data2 = data2, Data3 = data3, Data4 = data4 };
+    }
+    #endregion
 }

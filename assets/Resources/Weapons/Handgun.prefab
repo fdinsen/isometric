@@ -123,6 +123,13 @@ MonoBehaviour:
   currentAmmo: 0
   reloadTime: 3
   _gunAnimator: {fileID: 6849061488133844915}
+  shootSoundEvent:
+    Guid:
+      Data1: 1550034036
+      Data2: 1324280822
+      Data3: 376567688
+      Data4: 1495556070
+    Path: event:/SFX/Weapons/PistolTest/PistolTestShot
   firePoint: {fileID: 2780953851300709937}
   fireDir: {fileID: 647744298248977972}
   weaponTracerMaterial: {fileID: 2100000, guid: 37e4981e7fcbb584d85119ba7f5a6b9d, type: 2}

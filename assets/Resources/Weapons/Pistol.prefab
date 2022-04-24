@@ -110,6 +110,13 @@ MonoBehaviour:
   currentAmmo: 0
   reloadTime: 3
   _gunAnimator: {fileID: 8535772097303456061}
+  shootSoundEvent:
+    Guid:
+      Data1: 1534439329
+      Data2: 1180365133
+      Data3: 588018581
+      Data4: 865047722
+    Path: event:/SFX/Weapons/PistolTest/PistolTestShot3D
   firePoint: {fileID: 1876583474522146306}
   fireDir: {fileID: 3774113729950547463}
   bulletPrefab: {fileID: 1628897354262997406, guid: 346a02666811f6e4ab14d01380058a79, type: 3}
