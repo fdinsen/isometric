@@ -1,5 +1,33 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8530781915628098325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Weapons/PistolTest/PistolTestReload
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Weapons/PistolTest/PistolTestReload
+  Guid:
+    Data1: -657196520
+    Data2: 1302948972
+    Data3: -2137527365
+    Data4: -925016071
+  Banks:
+  - {fileID: -548400595166264242}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -6188846801184781235}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-8108000081227819277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27,6 +55,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 150160
+--- !u!114 &-6188846801184781235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/PistolTestReload/PlaybackTime
+  m_EditorClassIdentifier: 
+  Name: PlaybackTime
+  StudioPath: 
+  Min: 0.1
+  Max: 4
+  Default: 1
+  ID:
+    data1: 122039089
+    data2: 3520594959
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &-548400595166264242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42,12 +94,12 @@ MonoBehaviour:
   Path: assets/Audio/AudioBank/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 637863992944398590
+  lastModified: 637864167263180590
   FileSizes:
   - Name: Desktop
-    Value: 1822016
+    Value: 1847488
   - Name: Switch
-    Value: 7996448
+    Value: 7768
   Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -68,12 +120,13 @@ MonoBehaviour:
   - {fileID: 733865758721701167}
   - {fileID: -8108000081227819277}
   - {fileID: 2933099497557692721}
+  - {fileID: -8530781915628098325}
   EditorParameters: []
   MasterBanks:
   - {fileID: -548400595166264242}
   StringsBanks:
   - {fileID: 1503115485548801672}
-  cacheTime: 637863992944434297
+  cacheTime: 637864167263203403
   cacheVersion: 10
 --- !u!114 &733865758721701167
 MonoBehaviour:
@@ -117,12 +170,12 @@ MonoBehaviour:
   Path: assets/Audio/AudioBank/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637863992944434297
+  lastModified: 637864167263203403
   FileSizes:
   - Name: Desktop
-    Value: 902
+    Value: 1004
   - Name: Switch
-    Value: 902
+    Value: 1004
   Exists: 1
 --- !u!114 &2933099497557692721
 MonoBehaviour:

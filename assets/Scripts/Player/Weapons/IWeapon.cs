@@ -6,6 +6,7 @@ using Photon.Pun;
 using FMODUnity;
 using ExtensionMethods;
 
+[RequireComponent(typeof(AudioPlayer))]
 public abstract class IWeapon : MonoBehaviour
 {
     [Header("Ammo")]
@@ -20,8 +21,9 @@ public abstract class IWeapon : MonoBehaviour
     [SerializeField] protected Animator _gunAnimator;
 
     [Header("Audio")]
-    [SerializeField]
-    private EventReference shootSoundEvent;
+    [SerializeField] private AudioPlayer _audioPlayer;
+    [SerializeField] private EventReference shootSoundEvent;
+    [SerializeField] private EventReference reloadSoundEvent;
 
     [Header("Firing Direction Setup")]
     [SerializeField] protected Transform firePoint;
@@ -44,12 +46,12 @@ public abstract class IWeapon : MonoBehaviour
         playerSupply = GetComponentInParent<PlayerSupplies>();
         playerCamHandler = GetComponentInParent<PlayerCameraHandler>();
         if(_gunAnimator == null) _gunAnimator = GetComponentInChildren<Animator>();
+        if(_audioPlayer == null) _audioPlayer = GetComponentInChildren<AudioPlayer>();
         if (_view.IsMine)
         {
             AmmoChanged.Invoke(currentAmmo, maxAmmo);
         }
-    }
-        
+    }    
 
     public abstract void Shoot(Action onShoot);
     public abstract void Shoot(Vector3 dir, Action onShoot);
@@ -59,6 +61,7 @@ public abstract class IWeapon : MonoBehaviour
     public void Reload()
     {
         if (!playerSupply.HasAmmo(ammoType)) return;
+        PlayReloadSound();
         int ammosupply = playerSupply.GetAmmo(ammoType);
         int amountToReload;
         if( ammosupply - (maxAmmo-currentAmmo) >= 0)
@@ -104,9 +107,15 @@ public abstract class IWeapon : MonoBehaviour
 
     protected void PlayShootSound()
     {
-        PlayOneshotAttachedRPC(shootSoundEvent.Guid, RpcTarget.All);
+        _audioPlayer.PlayOneshotAttachedRPC(shootSoundEvent.Guid, _view, RpcTarget.All);
     }
 
+    protected void PlayReloadSound()
+    {
+        _audioPlayer.PlayOneshotAttachedRPC(reloadSoundEvent.Guid, _view, RpcTarget.All);
+    }
+
+    #region Event Args
     public class OnPlayerShootEventArgs
     {
         public Vector3 gunPosition;
@@ -119,54 +128,6 @@ public abstract class IWeapon : MonoBehaviour
             this.gunEndpointPosition = gunEndpointPosition;
             this.aimDirection = aimDirection;
         }
-    }
-    #region audio, move to interface after update to Unity 2021
-    private void PlayOneshotLocalAndRPC(FMOD.GUID guid, Vector3 position, RpcTarget target)
-    {
-        (int data1,int data2,int data3,int data4) = ConvertGuidToData(guid);
-        PlayOneShot(data1,data2,data3,data4, position);
-        _view.RPC("PlayOneShot", target, data1, data2, data3, data4, position);
-    }
-
-    private void PlayOneshotRPC(FMOD.GUID guid, Vector3 position, RpcTarget target)
-    {
-        (int data1, int data2, int data3, int data4) = ConvertGuidToData(guid);
-        _view.RPC("PlayOneShot", target,  data1, data2, data3, data4, position);
-    }
-
-    private void PlayOneshotAttachedLocalAndRPC(FMOD.GUID guid, RpcTarget target)
-    {
-        (int data1, int data2, int data3, int data4) = ConvertGuidToData(guid);
-        PlayOneshotAttached(data1, data2, data3, data4);
-        _view.RPC("PlayOneshotAttached", target, data1, data2, data3, data4);
-    }
-
-    private void PlayOneshotAttachedRPC(FMOD.GUID guid, RpcTarget target)
-    {
-        (int data1, int data2, int data3, int data4) = ConvertGuidToData(guid);
-        _view.RPC("PlayOneshotAttached", target, data1, data2, data3, data4);
-    }
-
-    [PunRPC]
-    protected void PlayOneshotAttached(int data1, int data2, int data3, int data4)
-    {
-        RuntimeManager.PlayOneShotAttached(ConvertDataToGuid(data1, data2, data3, data4), gameObject);
-    }
-
-    [PunRPC]
-    protected void PlayOneShot(int data1, int data2, int data3, int data4, Vector3 position)
-    {
-        RuntimeManager.PlayOneShot(ConvertDataToGuid(data1, data2, data3, data4), position);
-    }
-
-    private (int, int, int, int) ConvertGuidToData(FMOD.GUID guid)
-    {
-        return ( guid.Data1, guid.Data2, guid.Data3, guid.Data4 );
-    }
-
-    private FMOD.GUID ConvertDataToGuid(int data1, int data2, int data3, int data4)
-    {
-        return new FMOD.GUID { Data1 = data1, Data2 = data2, Data3 = data3, Data4 = data4 };
     }
     #endregion
 }

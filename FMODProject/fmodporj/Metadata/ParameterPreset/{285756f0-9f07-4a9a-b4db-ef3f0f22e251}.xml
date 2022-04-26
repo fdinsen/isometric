@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{285756f0-9f07-4a9a-b4db-ef3f0f22e251}">
+		<property name="name">
+			<value>PlaybackTime</value>
+		</property>
+		<relationship name="folder">
+			<destination>{51baeebb-24e1-43d1-8eeb-89bee1d74ec2}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{78b09a15-c669-48a0-a66d-d813ec26f983}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{78b09a15-c669-48a0-a66d-d813ec26f983}">
+		<property name="minimum">
+			<value>0.10000000000000001</value>
+		</property>
+		<property name="maximum">
+			<value>4</value>
+		</property>
+		<property name="initialValue">
+			<value>1</value>
+		</property>
+	</object>
+</objects>
