@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Photon.Pun;
+using FMODUnity;
+using ExtensionMethods;
 
+[RequireComponent(typeof(AudioPlayer))]
 public abstract class IWeapon : MonoBehaviour
 {
     [Header("Ammo")]
@@ -16,6 +19,11 @@ public abstract class IWeapon : MonoBehaviour
 
     [Header("Animation")]
     [SerializeField] protected Animator _gunAnimator;
+
+    [Header("Audio")]
+    [SerializeField] private AudioPlayer _audioPlayer;
+    [SerializeField] private EventReference shootSoundEvent;
+    [SerializeField] private EventReference reloadSoundEvent;
 
     [Header("Firing Direction Setup")]
     [SerializeField] protected Transform firePoint;
@@ -38,12 +46,12 @@ public abstract class IWeapon : MonoBehaviour
         playerSupply = GetComponentInParent<PlayerSupplies>();
         playerCamHandler = GetComponentInParent<PlayerCameraHandler>();
         if(_gunAnimator == null) _gunAnimator = GetComponentInChildren<Animator>();
+        if(_audioPlayer == null) _audioPlayer = GetComponentInChildren<AudioPlayer>();
         if (_view.IsMine)
         {
             AmmoChanged.Invoke(currentAmmo, maxAmmo);
         }
-    }
-        
+    }    
 
     public abstract void Shoot(Action onShoot);
     public abstract void Shoot(Vector3 dir, Action onShoot);
@@ -53,6 +61,7 @@ public abstract class IWeapon : MonoBehaviour
     public void Reload()
     {
         if (!playerSupply.HasAmmo(ammoType)) return;
+        PlayReloadSound();
         int ammosupply = playerSupply.GetAmmo(ammoType);
         int amountToReload;
         if( ammosupply - (maxAmmo-currentAmmo) >= 0)
@@ -96,6 +105,17 @@ public abstract class IWeapon : MonoBehaviour
         playerCamHandler.ShakeCamera(intensity, time, decreaseIntensityOverTime);
     }
 
+    protected void PlayShootSound()
+    {
+        _audioPlayer.PlayOneshotAttachedRPC(shootSoundEvent.Guid, _view, RpcTarget.All);
+    }
+
+    protected void PlayReloadSound()
+    {
+        _audioPlayer.PlayOneshotAttachedRPC(reloadSoundEvent.Guid, _view, RpcTarget.All);
+    }
+
+    #region Event Args
     public class OnPlayerShootEventArgs
     {
         public Vector3 gunPosition;
@@ -109,4 +129,5 @@ public abstract class IWeapon : MonoBehaviour
             this.aimDirection = aimDirection;
         }
     }
+    #endregion
 }

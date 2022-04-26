@@ -43,8 +43,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31a1dd675560ddf4da6a356e75f1f1de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _slotObject: {fileID: 0}
   _equippedWeapon: {fileID: 0}
-  _defaultWeaponName: Pistol
+  _weaponName: Pistol
 --- !u!1 &3723419710286740243
 GameObject:
   m_ObjectHideFlags: 0
@@ -287,8 +288,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8913725357197106193}
   - component: {fileID: 8913725357197106198}
-  - component: {fileID: 8913725357197106199}
   - component: {fileID: 1360631866104852497}
+  - component: {fileID: 4005515654655966680}
+  - component: {fileID: 7310099666547101791}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -353,14 +355,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &8913725357197106199
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8913725357197106196}
-  m_Enabled: 1
 --- !u!114 &1360631866104852497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -392,6 +386,53 @@ MonoBehaviour:
   _decay: 2
   _maxShake: 0.03
   _trauma: 0
+--- !u!114 &4005515654655966680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8913725357197106196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
+--- !u!114 &7310099666547101791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8913725357197106196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attenuationObject: {fileID: 0}
+  ListenerNumber: -1
 --- !u!1 &8913725357398311687
 GameObject:
   m_ObjectHideFlags: 0
@@ -593,9 +634,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _camera: {fileID: 8913725357398311687}
   _rb: {fileID: 309506411}
+  _hitboxCollider: {fileID: 0}
   _spriteAnim: {fileID: 460609013}
   _phealth: {fileID: 1632623331}
   _speed: 5
+  _dodgeForce: 1.5
+  _dodgeTime: 0.5
 --- !u!114 &1632623331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -634,10 +678,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactDistance: 1
-  interactableLayers:
-    serializedVersion: 2
-    m_Bits: 8
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 0
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!114 &807371033
 MonoBehaviour:
   m_ObjectHideFlags: 0

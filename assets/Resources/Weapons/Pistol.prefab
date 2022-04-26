@@ -73,24 +73,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
---- !u!1 &2674424658180949505 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1293848730582550201, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
-  m_PrefabInstance: {fileID: 3812820031903711416}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &3774113729950547463 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 38707133754982079, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
-  m_PrefabInstance: {fileID: 3812820031903711416}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &5821487274999555637 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7215831254184453773, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
-  m_PrefabInstance: {fileID: 3812820031903711416}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1876583474522146306 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3378593778441881274, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
+  m_PrefabInstance: {fileID: 3812820031903711416}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2674424658180949505 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1293848730582550201, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
   m_PrefabInstance: {fileID: 3812820031903711416}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &4736653742197176945
@@ -110,6 +100,21 @@ MonoBehaviour:
   currentAmmo: 0
   reloadTime: 3
   _gunAnimator: {fileID: 8535772097303456061}
+  _audioPlayer: {fileID: 0}
+  shootSoundEvent:
+    Guid:
+      Data1: 1534439329
+      Data2: 1180365133
+      Data3: 588018581
+      Data4: 865047722
+    Path: event:/SFX/Weapons/PistolTest/PistolTestShot3D
+  reloadSoundEvent:
+    Guid:
+      Data1: -657196520
+      Data2: 1302948972
+      Data3: -2137527365
+      Data4: -925016071
+    Path: event:/SFX/Weapons/PistolTest/PistolTestReload
   firePoint: {fileID: 1876583474522146306}
   fireDir: {fileID: 3774113729950547463}
   bulletPrefab: {fileID: 1628897354262997406, guid: 346a02666811f6e4ab14d01380058a79, type: 3}
@@ -119,9 +124,31 @@ MonoBehaviour:
   shakeIntensity: 1
   shakeTime: 0.3
   decreaseShakeOverTime: 0
+--- !u!114 &8075518906585830122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2674424658180949505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae241e0bb592c4a4ea8039cfdda9ae72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &3774113729950547463 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 38707133754982079, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
+  m_PrefabInstance: {fileID: 3812820031903711416}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5821487274999555637 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7215831254184453773, guid: 39eee6d5e1187194e909dcca4d1986e4, type: 3}
+  m_PrefabInstance: {fileID: 3812820031903711416}
+  m_PrefabAsset: {fileID: 0}
 --- !u!95 &8535772097303456061
 Animator:
-  serializedVersion: 3
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -134,6 +161,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1

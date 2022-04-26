@@ -64,6 +64,7 @@ public class Pistol : IWeapon
             InvokeAmmoChanged(currentAmmo, maxAmmo);
             onShoot();
             ShakeCamera(shakeIntensity, shakeTime, decreaseShakeOverTime);
+            PlayShootSound();
             //_gunAnimator?.SetTrigger("Attack");
 
             CreateBullets(bulletPrefab.name, firePoint.transform.position, fireDir.transform.rotation, dir, bulletForce);

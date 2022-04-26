@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{833a2633-ff86-4aec-80e6-24da03e09e1a}">
+		<property name="assetPath">
+			<value>SFX/Weapons/TestPistol/432139__maximbomba__pistolreloadsound.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>1.9705416666666666</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{0850ee10-6d35-4eeb-81e4-579ed1ea42bd}</destination>
+		</relationship>
+	</object>
+</objects>

@@ -1,0 +1,206 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8530781915628098325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Weapons/PistolTest/PistolTestReload
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Weapons/PistolTest/PistolTestReload
+  Guid:
+    Data1: -657196520
+    Data2: 1302948972
+    Data3: -2137527365
+    Data4: -925016071
+  Banks:
+  - {fileID: -548400595166264242}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -6188846801184781235}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-8108000081227819277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music/MainMenu/MainMenuMusic
+  m_EditorClassIdentifier: 
+  Path: event:/Music/MainMenu/MainMenuMusic
+  Guid:
+    Data1: 800819928
+    Data2: 1219424709
+    Data3: 834998205
+    Data4: 207807206
+  Banks:
+  - {fileID: -548400595166264242}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 150160
+--- !u!114 &-6188846801184781235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/PistolTestReload/PlaybackTime
+  m_EditorClassIdentifier: 
+  Name: PlaybackTime
+  StudioPath: 
+  Min: 0.1
+  Max: 4
+  Default: 1
+  ID:
+    data1: 122039089
+    data2: 3520594959
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-548400595166264242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: assets/Audio/AudioBank/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 637864167263180590
+  FileSizes:
+  - Name: Desktop
+    Value: 1847488
+  - Name: Switch
+    Value: 7768
+  Exists: 1
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
+  m_Name: FMODStudioCache
+  m_EditorClassIdentifier: 
+  EditorBanks:
+  - {fileID: 1503115485548801672}
+  - {fileID: -548400595166264242}
+  EditorEvents:
+  - {fileID: 733865758721701167}
+  - {fileID: -8108000081227819277}
+  - {fileID: 2933099497557692721}
+  - {fileID: -8530781915628098325}
+  EditorParameters: []
+  MasterBanks:
+  - {fileID: -548400595166264242}
+  StringsBanks:
+  - {fileID: 1503115485548801672}
+  cacheTime: 637864167263203403
+  cacheVersion: 10
+--- !u!114 &733865758721701167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Weapons/PistolTest/PistolTestShot
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Weapons/PistolTest/PistolTestShot
+  Guid:
+    Data1: 1550034036
+    Data2: 1324280822
+    Data3: 376567688
+    Data4: 1495556070
+  Banks:
+  - {fileID: -548400595166264242}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 660
+--- !u!114 &1503115485548801672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: assets/Audio/AudioBank/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 637864167263203403
+  FileSizes:
+  - Name: Desktop
+    Value: 1004
+  - Name: Switch
+    Value: 1004
+  Exists: 1
+--- !u!114 &2933099497557692721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Weapons/PistolTest/PistolTestShot3D
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Weapons/PistolTest/PistolTestShot3D
+  Guid:
+    Data1: 1534439329
+    Data2: 1180365133
+    Data3: 588018581
+    Data4: 865047722
+  Banks:
+  - {fileID: -548400595166264242}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 660
