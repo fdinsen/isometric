@@ -49,7 +49,7 @@ public class Pistol : IWeapon
 
     public override void Shoot(Vector3 dir, Action onShoot)
     {
-        //Debug.Log(currentAmmo);
+        
         if (isReloading) return;
 
         if (currentAmmo <= 0)

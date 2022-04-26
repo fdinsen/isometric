@@ -16,7 +16,7 @@ public class AmmoBarManager : MonoBehaviour
         _slider = GetComponent<Slider>();
         _slider.value = 1f;
         _weaponSlot = GetMyWeaponSlot();
-        _weaponSlot.WeaponSwapped += _ => { ConnectToWeapon(); /*Debug.Log("Connected ABM");*/ };
+        _weaponSlot.WeaponSwapped += _ => { ConnectToWeapon(); };
     }
 
     void SetAmmo(int currentAmmo, int maxAmmo)
@@ -42,5 +42,13 @@ public class AmmoBarManager : MonoBehaviour
         }
         Debug.LogError("Error: Ammo Bar could not find active player!");
         return null;
+    }
+
+    private IEnumerator Setup_AmmobarManager()
+    {
+        yield return new WaitForEndOfFrame();
+        _slider = GetComponent<Slider>();
+        _weaponSlot = GetMyWeaponSlot();
+        _weaponSlot.WeaponSwapped += _ => { ConnectToWeapon(); };
     }
 }

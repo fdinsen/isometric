@@ -32,7 +32,7 @@ public abstract class IWeapon : MonoBehaviour
 
     public void Start()
     {
-        AmmoChanged += (a, b) => { /*Debug.Log("Im being called");*/ };
+        AmmoChanged += (a, b) => { };
         currentAmmo = maxAmmo;
         _view = GetComponentInParent<PhotonView>();
         playerSupply = GetComponentInParent<PlayerSupplies>();

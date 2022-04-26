@@ -68,7 +68,7 @@ public class Handgun : IWeapon
 
     public override void Shoot(Vector3 target, Action onShoot)
     {
-        //Debug.Log(currentAmmo);
+        
         if (isReloading) return;
 
         if (currentAmmo <= 0)
